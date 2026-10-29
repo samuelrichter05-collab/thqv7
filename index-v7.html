@@ -1,0 +1,891 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#091018">
+<title>TRAINING HQ — Dein Trainingscockpit</title>
+<style>
+:root{color-scheme:dark;--bg:#081019;--panel:#101d29;--panel2:#142635;--line:#263747;--text:#f3f7fb;--muted:#92a6b5;--mint:#72e9b9;--blue:#8cbbff;--orange:#ffc589;--violet:#cbb1ff;--red:#ff8795;--r:19px;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 80% -10%,#143441 0,transparent 32%),var(--bg);color:var(--text);min-height:100vh}button,input,select,textarea{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--mint);outline-offset:2px}button:disabled{opacity:.45;cursor:not-allowed}
+.wrap{max-width:1230px;padding:27px 22px 100px;margin:auto}header{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:24px}.brand{display:flex;align-items:center;gap:12px}.brand-mark{width:45px;height:45px;display:grid;place-items:center;background:var(--mint);color:#092017;border-radius:14px;font-weight:1000;font-size:22px;box-shadow:0 7px 30px #45e2b02b}h1{font-weight:850;letter-spacing:-.045em;font-size:27px;margin:0;line-height:1.1}h2{letter-spacing:-.035em;font-size:21px;margin:0}h3{margin:0;font-size:15px}.eyebrow{color:var(--mint);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:850}.sub{color:var(--muted);font-size:12px}.subtitle{color:var(--muted);font-size:13px;margin-top:5px}.header-actions{display:flex;gap:9px;align-items:center}.btn{border:1px solid var(--line);background:#182b39;color:var(--text);border-radius:12px;padding:11px 14px;font-weight:750;font-size:13px;transition:filter .15s,border .15s}.btn:hover{filter:brightness(1.15);border-color:#51717c}.btn.primary{background:var(--mint);border-color:var(--mint);color:#092118}.btn.outline{background:transparent}.btn.small{padding:8px 11px;font-size:12px}.btn.danger{color:#ffb4bd;border-color:#72404a;background:#35232c}.nav{display:flex;gap:5px;background:#0f1b26;padding:5px;border:1px solid var(--line);border-radius:14px;margin-bottom:24px;width:max-content;max-width:100%;overflow:auto}.nav button{border:0;color:var(--muted);background:transparent;padding:11px 19px;border-radius:10px;font-size:13px;font-weight:700;white-space:nowrap}.nav button.active{background:#294236;color:#a5f9cf}.view{display:none}.view.active{display:block}.hero{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:19px}.hero h2{font-size:27px}.hero p{margin:5px 0 0;color:var(--muted);font-size:13px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}.stat{position:relative;background:linear-gradient(146deg,#152736,#0e1b26);border:1px solid var(--line);border-radius:var(--r);padding:19px;min-height:132px;overflow:hidden}.stat:after{content:"";position:absolute;right:-30px;top:-40px;height:105px;width:105px;background:var(--glow,#72e9b90f);border-radius:50%;filter:blur(7px)}.stat-head{display:flex;gap:8px;align-items:center;color:var(--muted);font-size:12px;font-weight:700}.stat .ico{font-size:18px}.stat strong{display:block;font-size:35px;letter-spacing:-.06em;margin-top:11px;font-weight:850;line-height:1}.stat strong small{font-size:13px;letter-spacing:0;font-weight:600;color:var(--muted)}.stat-foot{font-size:11px;margin-top:9px;color:var(--muted)}
+.dash{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(320px,.85fr);gap:16px}.stack{display:flex;flex-direction:column;gap:16px}.card{background:linear-gradient(160deg,#111f2c,#0f1b26);border:1px solid var(--line);border-radius:var(--r);padding:20px;min-width:0}.card-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:17px}.card-head p{font-size:12px;color:var(--muted);margin:4px 0 0}.control-row{display:flex;gap:7px;align-items:center;flex-wrap:wrap}.iconbtn{border:1px solid var(--line);border-radius:10px;background:#192a37;color:white;min-width:33px;height:33px;font-size:19px}.ghost-link{color:var(--mint);border:0;background:none;font-weight:750;font-size:12px;padding:4px}.vol-item{margin:19px 0}.vol-top{display:flex;justify-content:space-between;gap:9px;align-items:center;font-size:13px}.vol-top strong{font-size:14px}.vol-top span{color:var(--muted);font-size:12px}.track{height:9px;overflow:hidden;border-radius:20px;background:#243541;margin:9px 0 6px}.track>div{height:100%;border-radius:20px;transition:width .25s;background:var(--clr,var(--mint))}.goal-detail{display:flex;justify-content:space-between;gap:6px;color:var(--muted);font-size:11px}.tip{font-size:12px;color:var(--muted);line-height:1.5;margin:14px 0 0}
+.coach{background:linear-gradient(125deg,#1d3c35,#142733);border-color:#376a56}.coach-top{display:flex;gap:10px;align-items:center}.avatar{display:grid;place-items:center;border-radius:12px;width:38px;height:38px;background:#2d5f4b;font-size:21px}.coach-text{font-size:13px;line-height:1.7;color:#e0f5eb;margin-top:12px}.coach-text p{margin:0 0 10px}.coach-text p:last-child{margin:0}.coach-note{font-size:11px;color:#a4cbb9;line-height:1.5;margin-top:14px;border-top:1px solid #36594d;padding-top:11px}
+.quick-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.quick{display:flex;align-items:center;gap:12px;text-align:left;padding:16px 13px;background:#182c39;border:1px solid #314556;border-radius:14px;color:var(--text);transition:transform .15s,background .15s}.quick:hover{background:#1d3544;transform:translateY(-1px)}.quick .qi{height:39px;width:39px;flex:none;display:grid;place-items:center;border-radius:12px;background:#253d4a;font-size:20px}.quick b{display:block;font-size:13px}.quick small{font-size:11px;color:var(--muted);display:block;margin-top:4px}.section-footer{margin-top:13px;display:flex;justify-content:space-between;align-items:center;gap:7px;flex-wrap:wrap}
+.calendar{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}.weekname{text-align:center;font-size:10px;text-transform:uppercase;color:var(--muted);font-weight:800;padding:6px}.day{min-height:88px;text-align:left;border:1px solid #243545;background:#13222f;border-radius:11px;color:var(--text);padding:9px 8px;display:flex;flex-direction:column;gap:5px;min-width:0}.day.other{opacity:.38}.day.today{border-color:#4c9878}.day.selected{background:#204134;border-color:var(--mint);box-shadow:inset 0 0 0 1px #71e9b955}.day-head{display:flex;justify-content:space-between;gap:2px;align-items:center}.day-date{font-size:13px;font-weight:850}.todaydot{height:5px;width:5px;border-radius:50%;background:var(--mint)}.day-tags{display:flex;flex-wrap:wrap;gap:3px;align-content:start}.tag{display:inline-flex;align-items:center;gap:3px;font-size:10px;padding:4px;border-radius:5px;background:#263946;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}.tag.strength{color:#ffc0c0;background:#622b32}.tag .tag-number{font-weight:850;font-size:10px;font-variant-numeric:tabular-nums;line-height:1;min-width:7px;text-align:center}.tag svg{width:17px;height:17px;flex:none}.tag{gap:3px;flex:none}.day-tags{gap:3px}.tag.run{color:#b7f6d2;background:#194c37}.tag.football{color:#b1eaff;background:#214d69}.tag.stairs{color:#b7f6d2;background:#194c37}.tag.rest{color:#c5cdd1}.day-count{font-size:10px;color:var(--muted)}.day-empty{margin:auto;font-size:14px;color:#3c5b67}.calendar-caption{font-size:12px;margin-top:12px;color:var(--muted)}
+.daylist{display:flex;flex-direction:column;gap:7px}.log-entry{display:flex;gap:11px;align-items:center;padding:11px;border-radius:12px;border:1px solid #2b3d4c;background:#142534}.log-icon{font-size:19px;width:32px;text-align:center;flex:none}.log-main{min-width:0;flex:1}.log-main b{font-size:13px;display:block}.log-main span{display:block;color:var(--muted);font-size:11px;margin-top:4px;line-height:1.5}.log-actions{display:flex;align-items:center;gap:5px}.log-actions button{background:transparent;border:1px solid #354c59;border-radius:8px;color:#c5d4de;padding:6px 8px;font-size:12px}.empty{padding:24px 12px;text-align:center;color:var(--muted);font-size:13px;background:#12232f;border:1px dashed #354b59;border-radius:12px}.history-head{display:flex;align-items:center;justify-content:space-between;margin:4px 0 16px}.history-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.week-tile{text-align:left;padding:15px;background:#152737;border:1px solid var(--line);border-radius:14px;color:var(--text)}.week-tile.active{border-color:var(--mint)}.week-tile>span{font-size:11px;color:var(--muted)}.week-tile strong{display:block;margin:8px 0 9px;font-size:18px}.week-mini{display:flex;height:7px;gap:3px}.week-mini i{flex:1;border-radius:4px;background:#293d4b}.week-mini i.on{background:#47c58b}.week-mini i.strength{background:#ef626f}.week-mini i.football{background:#68c7f4}.week-tile small{display:block;margin-top:11px;font-size:11px;color:var(--muted);line-height:1.5}.big-week{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}.mini-kpi{background:#172b38;border-radius:13px;padding:16px}.mini-kpi strong{display:block;font-size:25px}.mini-kpi span{color:var(--muted);font-size:12px}.history-list{display:flex;flex-direction:column;gap:8px}.daygroup{padding:14px;border-radius:14px;background:#142635;border:1px solid var(--line)}.daygroup h3{margin:0 0 10px}.daygroup .log-entry{border:0;background:#1a3040;margin-top:6px}
+.data-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.input-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:flex;flex-direction:column;gap:6px;color:#c0ced6;font-size:12px;font-weight:700}.field input,.field select,.field textarea{width:100%;border:1px solid #38505d;background:#0c1924;color:white;border-radius:11px;padding:12px;font-size:14px}.field input::placeholder,.field textarea::placeholder{color:#657e8c}.data-actions{display:flex;gap:10px;flex-wrap:wrap}.divider{height:1px;background:var(--line);margin:18px 0}.hidden{display:none!important}.toast{position:fixed;z-index:99;bottom:24px;left:50%;transform:translateX(-50%);background:#def9e9;color:#102b1d;box-shadow:0 12px 45px #0008;padding:12px 17px;border-radius:12px;font-weight:800;font-size:13px;max-width:92vw;pointer-events:none;opacity:0;transition:opacity .25s}.toast.show{opacity:1}
+dialog{padding:0;background:var(--panel);border:1px solid #476071;border-radius:20px;color:white;width:min(560px,calc(100vw - 20px));max-height:min(90vh,850px);box-shadow:0 20px 100px #000a;overflow:auto}dialog::backdrop{background:#02060cbb;backdrop-filter:blur(4px)}.modal-head{position:sticky;top:0;z-index:2;background:#122535;padding:20px 22px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;align-items:center}.modal-head h2{font-size:21px}.close{height:31px;width:31px;border:1px solid var(--line);background:#213848;color:white;border-radius:9px;font-size:19px}.modal-body{padding:20px 22px 24px}.formfields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.field.wide{grid-column:1/-1}.form-note{font-size:12px;color:var(--muted);line-height:1.6;margin:12px 0}.actions{display:flex;gap:8px;justify-content:flex-end;align-items:center;margin-top:20px}.chipset{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0}.chip{border-radius:10px;padding:9px 10px;border:1px solid #395462;background:#1e3342;color:#dbe6eb;font-size:12px}.chip.active{border-color:var(--mint);color:var(--mint);background:#203e35}.upload{display:flex;align-items:center;justify-content:center;gap:9px;border:1px dashed #57937c;background:#1b352f;border-radius:14px;padding:21px;cursor:pointer;font-size:13px;color:#b5f4d2;font-weight:700;text-align:center}.upload input{display:none}.preview{max-height:250px;max-width:100%;border-radius:10px;object-fit:contain;display:block;margin:12px auto}.ocr-status{font-size:12px;line-height:1.5;color:var(--muted);margin:10px 0;min-height:0}.detected{display:flex;gap:5px;flex-wrap:wrap;margin:8px 0}.detected span{border-radius:8px;background:#223c39;color:#aaf4cd;padding:6px 8px;font-size:11px}.hint-warning{border-radius:12px;background:#3e3021;border:1px solid #796043;padding:11px 13px;color:#f7d7a8;font-size:12px;line-height:1.5;margin-top:12px}.timeline{font-size:11px;color:var(--muted)}.progress{height:5px;background:#263b46;border-radius:6px;overflow:hidden;margin-top:10px}.progress>div{height:100%;background:var(--mint);width:0;transition:width .2s}
+@media(max-width:920px){.dash{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.history-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:620px){.wrap{padding:19px 12px 90px}header{align-items:flex-start}.header-actions .btn.outline{display:none}h1{font-size:23px}.brand-mark{width:41px;height:41px}.header-actions .btn.primary{padding:11px;font-size:12px}.nav{width:100%;justify-content:space-around;gap:2px;padding:4px}.nav button{padding:10px 9px;font-size:11px}.hero h2{font-size:22px}.stats{gap:8px}.stat{padding:13px;min-height:114px}.stat strong{font-size:29px}.stat-head{font-size:11px}.card{padding:15px}.day{min-height:68px;padding:6px 4px;border-radius:9px;gap:4px}.calendar{gap:4px}.day-date{font-size:12px}.day-tags{gap:2px}.tag{font-size:9px;padding:2px 3px}.day-count{display:none}.quick{padding:11px 8px;gap:7px}.quick .qi{width:33px;height:33px;font-size:18px}.quick b{font-size:12px}.quick small{font-size:10px}.history-grid{grid-template-columns:repeat(2,1fr)}.data-grid{grid-template-columns:1fr}.formfields{gap:10px}.modal-head,.modal-body{padding:16px}.big-week{gap:6px}.mini-kpi{padding:11px}.mini-kpi strong{font-size:21px}}
+@media(max-width:360px){.stats{grid-template-columns:repeat(2,1fr)}.quick-grid{grid-template-columns:1fr}.tag{font-size:8px}}
+
+/* V4: übersichtliches Eingabemenü, gleichmäßiger Wochenrückblick und individuelle Ziele */
+.capture-card{border-color:#365a54;background:linear-gradient(135deg,#132e32,#101e2b)}
+.capture-symbol{display:grid;place-items:center;flex:none;width:42px;height:42px;border-radius:14px;background:#224b40;color:var(--mint);font-size:25px}
+.capture-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}.capture-actions .btn{min-height:46px;padding:10px 9px}
+.week-tile{display:flex;flex-direction:column;gap:11px;min-width:0;min-height:175px;transition:border-color .15s,transform .15s}.week-tile:hover{border-color:#5c7887;transform:translateY(-1px)}
+.week-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;margin:2px 0 1px}
+.week-metrics>div{min-width:0;border:1px solid #2e4050;border-radius:10px;background:#101f2b;padding:9px 5px;text-align:center}
+.week-metrics b{display:block;font-size:19px;line-height:1.25;white-space:nowrap;font-weight:850;letter-spacing:-.05em}
+.week-metrics small{display:block;font-size:10px;color:var(--muted);margin-top:4px;line-height:1.3}
+.week-exercises{display:flex;gap:4px;flex-wrap:wrap;margin-top:0}
+.week-exercises .tag{padding:4px 6px}
+.week-foot{font-size:11px;color:var(--muted);margin-top:auto}
+.tag svg,.log-icon svg{height:19px;width:19px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;vertical-align:middle}
+.log-icon svg{height:24px;width:24px}
+.tag.strength,.log-entry.strength .log-icon{color:#ffc0c0}.tag.football,.log-entry.football .log-icon{color:#b1eaff}.tag.run,.tag.stairs,.log-entry.run .log-icon,.log-entry.stairs .log-icon{color:#b7f6d2}
+.day-tags .tag{display:inline-flex;justify-content:center;align-items:center;min-width:22px;min-height:23px}
+.day-tags .tag.more{font-size:9px;color:var(--muted)}
+.big-week .mini-kpi{min-width:0}.big-week .mini-kpi strong{white-space:nowrap;font-size:clamp(18px,2vw,25px)}
+.goal-editor{display:flex;flex-direction:column;gap:8px}.goal-row{display:grid;grid-template-columns:minmax(0,1fr) 95px 34px;gap:8px;align-items:center;padding:8px 9px;background:#172b38;border:1px solid #304657;border-radius:11px}
+.goal-label{min-width:0}.goal-label strong{display:block;font-size:13px;overflow-wrap:anywhere}.goal-label small{display:block;color:var(--muted);margin-top:3px;font-size:11px}
+.goal-row input{width:100%;min-width:0;padding:9px;border:1px solid #38505d;background:#0c1924;border-radius:9px;color:#fff;font-size:14px}
+.goal-remove{background:#37252b;border:1px solid #774550;color:#ffb4bd;border-radius:9px;font-size:22px;min-height:35px;line-height:1}
+@media(max-width:620px){.capture-actions{grid-template-columns:1fr 1fr}.week-metrics b{font-size:18px}.week-metrics small{font-size:9px}.week-tile{padding:10px;gap:9px;min-height:178px}.week-exercises .tag{padding:3px 4px}.goal-row{grid-template-columns:minmax(0,1fr) 79px 33px}.day-tags .tag svg{height:16px;width:16px}.day-tags .tag{min-width:19px;min-height:19px;padding:1px}}
+@media(max-width:390px){.capture-actions{grid-template-columns:1fr}.week-metrics{gap:3px}.week-metrics>div{padding:7px 2px}.week-metrics b{font-size:16px}.week-metrics small{font-size:9px}}
+
+/* V5: Plan, Score, Regeneration und Fortschrittsdiagramme */
+:root{--strength:#ef626f;--endurance:#47c58b;--football:#68c7f4;--score:#baaaff}
+.nav{scrollbar-width:thin}.nav button{flex-shrink:0}
+.week-metrics>div:nth-child(1){border:1px solid #ef626f66;background:#41232b}.week-metrics>div:nth-child(1) b,.week-metrics>div:nth-child(1) small{color:#ffc0c0}
+.week-metrics>div:nth-child(2){border:1px solid #47c58b66;background:#193e30}.week-metrics>div:nth-child(2) b,.week-metrics>div:nth-child(2) small{color:#a9efc7}
+.week-metrics>div:nth-child(3){border:1px solid #68c7f466;background:#1c3e55}.week-metrics>div:nth-child(3) b,.week-metrics>div:nth-child(3) small{color:#b1eaff}
+.mini-kpi.strength{border:1px solid #ef626f4d;background:#38212c}.mini-kpi.run{border:1px solid #47c58b4d;background:#19392f}.mini-kpi.football{border:1px solid #68c7f44d;background:#1b374c}
+.mini-kpi.strength strong{color:#ff9eaa}.mini-kpi.run strong{color:#90eab7}.mini-kpi.football strong{color:#9fe0ff}
+.plan-stack{display:flex;flex-direction:column;gap:9px}.plan-item{display:flex;align-items:flex-start;gap:10px;padding:12px;background:#142634;border:1px dashed #678098;border-radius:12px}
+.plan-item .log-icon{width:31px}.plan-body{flex:1;min-width:0}.plan-body strong{font-size:13px;display:block}.plan-body small{font-size:11px;color:var(--muted);line-height:1.65;display:block;margin-top:4px}.plan-actions{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}.plan-actions .btn{padding:6px 7px;font-size:11px}.plan-label{font-size:10px;color:#a9c6d6;text-transform:uppercase;letter-spacing:.08em;font-weight:800}
+.tag.planned{border:1px dashed currentColor;opacity:.9;background:transparent}.tag.planned:after{content:'◌';font-size:9px;margin-left:1px}.plan-empty{font-size:12px;color:var(--muted);line-height:1.6}
+.recovery{border-color:#405263;background:linear-gradient(130deg,#202638,#112332)}.advice-list{display:flex;flex-direction:column;gap:9px}.advice{padding:11px 12px;border:1px solid #3d5264;border-radius:12px;background:#1b2b3c;font-size:12px;line-height:1.65}.advice strong{display:block;font-size:12px;margin-bottom:3px}.advice.warning{border-color:#846541;background:#3c3023}.advice.success{border-color:#376855;background:#173a31}
+.score-grid{display:grid;grid-template-columns:auto 1fr;gap:15px;align-items:center}.score-ring{--pct:0;--ring:#baaaff;width:100px;height:100px;flex-shrink:0;border-radius:50%;background:conic-gradient(var(--ring) calc(var(--pct)*1%),#263846 0);display:grid;place-items:center}.score-ring-inner{width:79px;height:79px;display:flex;align-items:center;justify-content:center;flex-direction:column;border-radius:50%;background:#101e2b}.score-ring-inner strong{font-size:25px}.score-ring-inner small{color:var(--muted);font-size:10px}.score-details{font-size:12px;line-height:1.75}.score-details b{font-variant-numeric:tabular-nums}.score-explainer{font-size:11px;line-height:1.65;color:var(--muted);margin-top:10px}.history-score{margin-bottom:16px;padding:14px;border:1px solid #475365;border-radius:14px;background:#172736}
+.progress-highlights{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}.progress-highlight{background:#132635;border:1px solid #304556;padding:15px;border-radius:14px;min-width:0}.progress-highlight b{font-size:23px;display:block;margin:7px 0 4px}.progress-highlight small{font-size:11px;color:var(--muted);line-height:1.4;display:block}.progress-highlight strong{font-size:11px;color:var(--muted)}
+.progress-two{display:grid;grid-template-columns:1fr 1fr;gap:16px}.chart-controls{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:15px}.chart-controls .field{min-width:150px;flex:1}.chart-area{width:100%;min-height:235px;display:flex;flex-direction:column;justify-content:center}.chart-area svg{display:block;width:100%;height:auto;max-height:310px;overflow:visible}.chart-area .empty{width:100%}.chart-area .gridline{stroke:#355064;stroke-width:.8;stroke-dasharray:3 5}.chart-area .axistext{fill:#93a9b7;font-size:10px}.chart-area .datapoint{stroke:#101d29;stroke-width:2}.chart-area .chartline{fill:none;stroke-width:2.7;stroke-linejoin:round;stroke-linecap:round}.chart-footnote{font-size:11px;color:var(--muted);line-height:1.6;margin:8px 0 0}
+@media(max-width:920px){.progress-two{grid-template-columns:1fr}}
+@media(max-width:620px){.nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));width:100%;gap:2px}.nav button{padding:10px 2px;font-size:10px;min-width:0;overflow:hidden;text-overflow:ellipsis}.progress-highlights{grid-template-columns:repeat(2,1fr)}.progress-highlight{padding:12px}.progress-highlight b{font-size:21px}.score-ring{height:90px;width:90px}.score-ring-inner{height:69px;width:69px}.plan-item{flex-wrap:wrap}.plan-actions{width:100%;justify-content:flex-start}.week-metrics>div{border-radius:8px}}
+
+
+/* V6: eigene gelbe Kategorie und mobile Schnellvorschau */
+:root{--functional:#f5cd56}
+.tag.functional{color:#ffeb9a;background:#5a481c}.log-entry.functional{border-color:#77632a;background:#28291f}.log-entry.functional .log-icon,.plan-item.functional .log-icon{color:#ffdf6d}
+.week-mini i.functional{background:#f5cd56}.mini-kpi.functional{border:1px solid #b7993f66;background:#3c3421}.mini-kpi.functional strong{color:#ffe08d}
+.big-week{grid-template-columns:repeat(4,minmax(0,1fr))}.tag.functional svg{stroke:#ffe19a}.tag.functional .tag-number{color:#ffe19a}@media(max-width:620px){.tag{padding:3px 4px}.tag svg{width:13px;height:13px}.tag .tag-number{font-size:9px}}
+.smart-tools{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.smart-new{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:9px;margin-top:12px;padding:13px;background:#1e2c31;border:1px solid #52606b;border-radius:12px}.smart-new button{grid-column:1/-1}
+.smart-row{display:grid;grid-template-columns:minmax(0,1.4fr) 75px 67px 70px 64px 40px;gap:6px;align-items:center;padding:10px;border:1px solid #344b59;border-radius:12px;background:#142534}.smart-row.functional{border-color:#74602e}.smart-row select,.smart-row input{min-width:0;width:100%;padding:8px 5px;background:#0c1924;color:#f5f9fc;border:1px solid #395361;border-radius:8px;font-size:12px}.smart-row .smart-ex{display:flex;flex-direction:column;gap:3px}.smart-row .smart-ex small{font-size:10px;color:var(--muted)}.smart-row .smart-mini{display:flex;flex-direction:column;gap:3px}.smart-row .smart-mini small{font-size:9px;color:var(--muted)}
+@media(max-width:620px){.big-week{grid-template-columns:repeat(2,minmax(0,1fr))}.smart-row{grid-template-columns:minmax(0,1fr) repeat(3,minmax(0,60px)) 35px;gap:5px}.smart-row .smart-ex{grid-column:1/-1}.smart-row .smart-delete{grid-column:5;grid-row:2}.smart-new{grid-template-columns:1fr}}
+.functional-strip{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#292719;border:1px solid #766028;border-radius:14px;padding:13px 16px;margin:-4px 0 18px}.functional-strip strong{display:block;font-size:13px;color:#ffe28d}.functional-strip span{display:block;color:#e0d3a3;font-size:11px;margin-top:5px}.functional-strip .btn{background:#54441e;border-color:#957a30;color:#ffebac;white-space:nowrap}@media(max-width:620px){.functional-strip{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><div class="brand"><div class="brand-mark">↗</div><div><h1>TRAINING HQ <span style="font-size:11px;color:var(--mint);vertical-align:top">V6</span></h1><div class="subtitle">Fußball. Ausdauer. Kraft. Funktionalität.</div></div></div><div class="header-actions"><button class="btn outline" id="headerBackup">↓ Backup</button><button class="btn primary" id="headerAdd">＋ Eintragen</button></div></header>
+<nav class="nav" aria-label="Navigation"><button data-view="overview" class="active">▦ Übersicht</button><button data-view="calendar">▣ Kalender</button><button data-view="history">▥ Verlauf</button><button data-view="progress">◫ Fortschritt</button><button data-view="settings">⚙ Ziele</button></nav>
+<div id="storageWarning" class="hint-warning hidden" style="margin-bottom:16px">Dein Browser blockiert lokale Speicherung. Einträge funktionieren in dieser Sitzung, sind nach einem Neustart aber möglicherweise weg. Bitte regelmäßig JSON-Backups exportieren oder die App über eine feste Website öffnen.</div>
+<section id="view-overview" class="view active">
+  <div class="hero"><div><div class="eyebrow">Dein Trainingscockpit</div><h2 id="greeting">Deine Woche im Blick.</h2><p id="weekRange">—</p></div><button class="btn small outline" id="jumpToday">Diese Woche</button></div>
+  <div class="stats"><div class="stat"><div class="stat-head"><span class="ico">💪</span> Harte OK-Sätze</div><strong id="statSets">0</strong><div class="stat-foot">Brust, Rücken, Schultern & Arme</div></div><div class="stat" style="--glow:#8cbbff1a"><div class="stat-head"><span class="ico">🏃</span> Laufen</div><strong id="statRun">0 <small>km</small></strong><div class="stat-foot" id="statRunSub">0 Einheiten</div></div><div class="stat" style="--glow:#ffc58919"><div class="stat-head"><span class="ico">⚽</span> Fußball</div><strong id="statFoot">0 <small>km</small></strong><div class="stat-foot" id="statFootSub">0 Einheiten</div></div><div class="stat" style="--glow:#cbb1ff18"><div class="stat-head"><span class="ico">📅</span> Aktive Tage</div><strong id="statDays">0 <small>/ 7</small></strong><div class="stat-foot">inkl. Kraft, Laufen, Fußball</div></div></div>
+  <div class="functional-strip"><div><strong>🟡 Funktionalität & Mobilität</strong><span id="functionalOverview">Diese Woche noch keine funktionellen Sätze.</span></div><button type="button" class="btn small" id="functionalQuickAdd">＋ Funktionell eintragen</button></div>
+  <div class="dash"><div class="stack">
+    <div class="card"><div class="card-head"><div><h2>Kalender</h2><p>Ein Trainingstag ist mehr als ein Workout.</p></div><div class="control-row"><button class="iconbtn" id="monthPrev" aria-label="Voriger Monat">‹</button><strong id="monthTitle" style="font-size:12px;min-width:93px;text-align:center"></strong><button class="iconbtn" id="monthNext" aria-label="Nächster Monat">›</button></div></div><div id="overviewCalendar" class="calendar"></div><div class="calendar-caption">Tag antippen, um Details zu sehen oder etwas nachzutragen.</div></div>
+    <div class="card"><div class="card-head"><div><h2 id="selectedDayTitle">Tagesprotokoll</h2><p>Alle Einheiten und einzelne Arbeitssätze.</p></div><div class="control-row"><button id="dayPlan" class="btn small">🗓 Planen</button><button id="dayAdd" class="btn small">＋ Eintragen</button></div></div><div id="selectedDayEntries" class="daylist"></div></div>
+    <div class="card"><div class="card-head"><div><h2>Wochenrückblick</h2><p>Letzte acht Wochen im Vergleich.</p></div><button class="ghost-link" data-go="history">Alle ansehen →</button></div><div id="weekHistory" class="history-grid"></div></div>
+  </div><div class="stack">
+    <div class="card capture-card"><div class="card-head"><div><div class="eyebrow">Erfassen</div><h2>Training eintragen</h2><p>Beschreibe dein Training per Text oder Sprache.</p></div><span class="capture-symbol" aria-hidden="true">✦</span></div><div class="capture-actions"><button class="btn primary" id="addOther">＋ Manuell eintragen</button><button class="btn" id="smartOpen">🎙️ Sprache / Text (Test)</button></div><p class="tip">Text erkennt Gewichte, x-Kurzform, mehrere Sätze und funktionelle Übungen. Prüfe die Vorschau vor dem Speichern; alles bleibt lokal.</p></div>
+    <div class="card"><div class="card-head"><div><h2>Deine Wochenziele</h2><p>Kraft-Sätze, Ausdauer und Fußball auf einen Blick.</p></div><button class="ghost-link" data-go="settings">Ziele ändern</button></div><div id="volumeList"></div><p class="tip">Kraft: anspruchsvolle Sätze mit RIR 0–3. Kilometer werden getrennt erfasst.</p></div>
+    <div class="card" id="weekScoreCard"><div class="card-head"><div><h2>🏅 Wochenscore</h2><p>Zielerfüllung, Regelmäßigkeit & Leistungstrend.</p></div><button class="ghost-link" data-go="progress">Diagramme →</button></div><div id="overviewScore"></div></div>
+    <div class="card"><div class="card-head"><div><h2>🗓️ Vorplanung</h2><p>Die nächsten Einheiten planen und bei Bedarf bearbeiten.</p></div><button class="btn small" id="planOpenOverview">＋ Planen</button></div><div id="upcomingPlans" class="plan-stack"></div></div>
+    <div class="card recovery"><div class="card-head"><div><h2>🌙 Regenerationshinweise</h2><p>Aktuelle Belastung + bevorstehender Trainingsplan.</p></div></div><div id="recoveryAdvice" class="advice-list"></div><div style="margin-top:12px"><button class="btn small" id="copyRecovery">🤖 Für ChatGPT kopieren</button></div><p class="coach-note">Lokal berechnete Hinweise, keine angebundene KI und keine medizinische Beurteilung. Höre zusätzlich auf Müdigkeit, Schmerzen und Schlaf.</p></div>
+    <div class="card coach"><div class="coach-top"><div class="avatar">✦</div><div><h2>Dein Trainingscoach</h2><div class="subtitle" style="color:#acd5c2">Automatische Wochenanalyse</div></div></div><div id="coachText" class="coach-text"></div><div class="coach-note">Regelbasierte Auswertung – keine echte angebundene KI. Über „Bericht kopieren“ kannst du mir deine Daten für eine persönlichere Analyse schicken.</div><div style="margin-top:13px"><button class="btn small" id="copyWeek">📋 Bericht kopieren</button></div></div>
+  </div></div>
+</section>
+<section id="view-calendar" class="view"><div class="hero"><div><div class="eyebrow">Trainingstage</div><h2>Kalenderansicht</h2><p>Finde deine Einheiten aus vergangenen Wochen und Monaten.</p></div><button class="btn small" id="calAdd">＋ Nachtragen</button></div><div class="card"><div class="card-head"><h2 id="calendarMonthTitle">—</h2><div class="control-row"><button class="iconbtn" id="calPrev">‹</button><button class="btn small" id="calToday">Heute</button><button class="iconbtn" id="calNext">›</button></div></div><div id="bigCalendar" class="calendar"></div><p class="calendar-caption">Zahl am Symbol = absolvierte Sätze/Versuche (bei Ausdauer: Einheiten). &nbsp; 🔴 Kraft &nbsp; 🟢 Lauf/Ausdauer &nbsp; 🔵 Fußball &nbsp; 🪜 Treppen &nbsp; 💤 Ruhetag &nbsp; 🟡 Funktionalität & Mobilität &nbsp; ◌ Umrandung = geplant</p></div><div class="card" style="margin-top:16px"><div class="card-head"><div><h2 id="calendarDayTitle">Einträge</h2><p>Ausgewählter Tag</p></div><div class="control-row"><button class="btn small" id="calDayPlan">🗓 Planen</button><button class="btn small" id="calDayAdd">＋ Eintrag</button></div></div><div id="calendarDayEntries" class="daylist"></div></div></section>
+<section id="view-history" class="view"><div class="hero"><div><div class="eyebrow">Rückblick</div><h2>Dein Trainingsverlauf</h2><p>Wochenvolumen, Laufkilometer, Fußball und Trainingshäufigkeit.</p></div></div><div id="historyWeeks" class="history-grid" style="margin-bottom:20px"></div><div class="card"><div class="card-head"><div><h2 id="historyTitle">Ausgewählte Woche</h2><p>Alle protokollierten Einheiten im Detail.</p></div><button class="btn small" id="historyAdd">＋ Eintrag</button></div><div id="historyKPIs" class="big-week"></div><div id="historyScore" class="history-score"></div><div id="historyEntries" class="history-list"></div></div></section>
+<section id="view-progress" class="view">
+ <div class="hero"><div><div class="eyebrow">Leistung & Entwicklung</div><h2>Dein Fortschritt</h2><p>Deine echten Trainingsdaten als interaktive Diagramme – ohne externe Bibliotheken.</p></div></div>
+ <div id="progressHighlights" class="progress-highlights"></div>
+ <div class="card" style="margin-bottom:16px"><div class="card-head"><div><h2>Wochenentwicklung</h2><p>Kraft-Sätze, Lauf-km, Fußball-km oder Wochenscore.</p></div></div><div class="chart-controls"><label class="field">Kennzahl<select id="progressMetric"><option value="strengthSets">🔴 Kraft-Sätze</option><option value="functionalSets">🟡 Funktionelle Sätze</option><option value="runKm">🟢 Laufkilometer</option><option value="footballKm">🔵 Fußballkilometer</option><option value="score">🏅 Wochenscore</option></select></label><label class="field">Zeitraum<select id="progressPeriod"><option value="8">8 Wochen</option><option value="12" selected>12 Wochen</option><option value="24">24 Wochen</option></select></label></div><div id="weeklyProgressChart" class="chart-area"></div><p class="chart-footnote">Nur abgeschlossene Trainingseinträge zählen. Der Wochenscore wird mit deinen aktuell eingestellten Zielen berechnet; vergangene Scores verändern sich, wenn du Ziele änderst.</p></div>
+ <div class="progress-two"><div class="card"><div class="card-head"><div><h2>💪 Übungsfortschritt</h2><p>Gewicht und Wiederholungen gemeinsam auswerten; Halteübungen nach Bestzeit.</p></div></div><div class="chart-controls"><label class="field">Übung<select id="progressExercise"></select></label><label class="field">Messwert<select id="progressExerciseMetric"><option value="e1rm">Kraftindex · geschätztes 1RM (kg)</option><option value="reps">Beste Wiederholungen</option><option value="weight">Höchstes Gewicht (kg)</option><option value="seconds">Beste Haltezeit je Versuch (Sek.)</option></select></label></div><div id="exerciseProgressChart" class="chart-area"></div><p id="exerciseChartNote" class="chart-footnote">Geschätztes 1RM: Gewicht × (1 + Wiederholungen / 30). Das ist ein Näherungswert pro Übung, kein gemessener Maximalkraftwert; bei vielen Wiederholungen besonders ungenau. Körpergewichtsübungen ohne erfasstes Zusatzgewicht werden über Wiederholungen verglichen.</p></div>
+ <div class="card"><div class="card-head"><div><h2>🏃 Lauftempo</h2><p>Durchschnittliche Pace deiner Läufe.</p></div></div><div id="paceProgressChart" class="chart-area"></div><p class="chart-footnote">Nur Läufe mit Distanz und Dauer. Schnelleres Tempo liegt im Diagramm höher; lange und kurze Läufe sind nicht direkt vergleichbar.</p></div></div>
+</section>
+<section id="view-settings" class="view"><div class="hero"><div><div class="eyebrow">Anpassung & Backup</div><h2>Deine Ziele & Daten</h2><p>Alle Daten bleiben auf diesem Gerät – kein Account erforderlich.</p></div></div><div class="data-grid"><div class="card"><h2>Deine Wochenziele</h2><p class="tip">Kraft-Sätze und Kilometer individuell festlegen. Entfernte Ziele verschwinden auch aus der Übersicht.</p><div id="targetInputs" class="goal-editor" style="margin-top:17px"></div><div class="actions"><button id="saveTargets" class="btn primary">Änderungen speichern</button></div><div class="divider"></div><h3>Neues Ziel hinzufügen</h3><div class="formfields" style="margin-top:12px"><label class="field wide">Kennzahl<select id="newGoalMetric"></select></label><label class="field">Wochenziel<input id="newGoalAmount" type="number" min="0" max="10000" step="0.5" inputmode="decimal" placeholder="z. B. 10"></label><div class="field" style="justify-content:end"><button type="button" id="addGoal" class="btn">＋ Ziel hinzufügen</button></div></div></div><div class="card"><h2>Eigene Übungen</h2><p class="tip">Neue Übungen dauerhaft hinzufügen. Sie stehen auch für die Texteingabe bereit.</p><div class="formfields" style="margin-top:15px"><label class="field">Übungsname<input id="newExercise" placeholder="z. B. Bulgarian Split Squats" maxlength="80"></label><label class="field">Hauptmuskelgruppe<select id="newExerciseMuscle"><option value="chest">Brust</option><option value="back">Rücken</option><option value="shoulders">Schultern</option><option value="arms">Arme</option><option value="quads">Quadrizeps</option><option value="hamstrings">Hamstrings</option><option value="calves">Waden</option><option value="core">Core</option></select></label><label class="field wide">Kategorie<select id="newExerciseKind"><option value="strength">🔴 Kraft</option><option value="functional">🟡 Funktionell / Mobilität</option></select></label></div><div class="actions"><button class="btn primary" id="addExercise">＋ Übung hinzufügen</button></div><div id="customExerciseList" class="tip"></div></div><div class="card"><h2>Export & Import</h2><p class="tip">Sichere deine Einträge als JSON. Das ist besonders bei Nutzung einer lokalen HTML-Datei auf dem iPhone wichtig.</p><div class="data-actions" style="margin-top:23px"><button id="backupExport" class="btn primary">↓ JSON-Backup</button><button id="backupImport" class="btn">↑ Backup importieren</button><input id="backupFile" type="file" accept=".json,application/json" class="hidden"></div><div class="divider"></div><p class="tip">Die Screenshot-Erkennung liest Text lokal im Browser aus, nachdem die OCR-Bibliothek aus dem Internet geladen wurde. Hochgeladene Bilder werden nicht in der App gespeichert oder an einen eigenen Server gesendet. Für die Sicherung deiner Einträge ist ein JSON-Backup nötig.</p><div class="divider"></div><button id="clearAll" class="btn danger small">Alle Daten löschen</button></div></div></section>
+</div>
+<dialog id="entryDialog"><div class="modal-head"><div><div class="eyebrow">Einheit erfassen</div><h2 id="modalTitle">Training hinzufügen</h2></div><button class="close" id="modalClose" aria-label="Schließen">×</button></div><div class="modal-body"><div class="chipset"><button type="button" class="chip active" data-mode="strength">💪 Kraft</button><button type="button" class="chip" data-mode="functional">🟡 Funktionell</button><button type="button" class="chip" data-mode="run">🏃 Laufen</button><button type="button" class="chip" data-mode="football">⚽ Fußball</button><button type="button" class="chip" data-mode="stairs">🪜 Treppen</button><button type="button" class="chip" data-mode="rest">💤 Pause</button></div>
+<form id="entryForm"><div class="formfields">
+<label class="field">Datum<input id="entryDate" type="date" required></label>
+<label class="field" id="entryTitleWrap">Titel (optional)<input id="entryTitle" type="text" maxlength="80" placeholder="z. B. Nachtschicht"></label>
+<label class="field wide" id="exerciseWrap">Übung<select id="exercise"><option>Klimmzüge</option><option>Liegestütze</option><option>Liegestütze (Füße erhöht)</option><option>Brustpresse</option><option>Rudern</option><option>Latzug</option><option>Schulterdrücken</option><option>Seitheben</option><option>Dips</option><option>Bizepscurls</option><option>Trizepsdrücken</option><option>Beinpresse</option><option>Kniebeugen</option><option>Squatsprünge</option><option>Beinbeuger</option><option>Rumänisches Kreuzheben</option><option>Ausfallschritte</option><option>Wadenheben</option><option>Core</option></select></label>
+<label class="field" id="setsWrap">Sätze<input id="entrySets" type="number" min="1" max="30" step="1" value="1" required></label>
+<label class="field" id="repsWrap">Wiederholungen / Satz<input id="entryReps" type="number" min="1" max="300" step="1" value="10" required></label>
+<label class="field" id="weightWrap">Gewicht / Zusatzgewicht (kg)<input id="entryWeight" type="number" min="0" max="1000" step="0.5" placeholder="optional"></label>
+<label class="field hidden" id="secondsWrap">Dauer pro Satz (Sekunden, optional)<input id="entrySeconds" type="number" min="1" max="3600" step="1" placeholder="z. B. 20"></label><label class="field wide hidden" id="entryHoldTimesWrap">Beste Haltezeit je Versuch (Sekunden)<input id="entryHoldTimes" type="text" inputmode="text" placeholder="z. B. 20, 25, 30"><span style="font-size:11px;font-weight:400;color:var(--muted)">Jede Zeit wird als ein Versuch gespeichert. Keine Wiederholungen erforderlich.</span></label>
+<label class="field" id="rirWrap">RIR – Wiederholungen Reserve<select id="entryRir"><option value="2">2 (anspruchsvoll)</option><option value="1">1 (sehr hart)</option><option value="3">3 (moderat)</option><option value="0">0 (Muskelversagen)</option><option value="4">4 (locker)</option><option value="5">5+ (sehr locker)</option></select></label>
+<div class="field wide hidden" id="ocrWrap"><label class="upload" for="ocrFile">📷 Strava-Screenshot auswählen <span style="font-size:10px;color:#8cb9a6">JPG / PNG / HEIC*</span><input id="ocrFile" type="file" accept="image/*"></label><img id="ocrPreview" class="preview hidden" alt="Vorschau des Screenshots"><div id="ocrStatus" class="ocr-status"></div><div id="ocrProgress" class="progress hidden"><div id="ocrBar"></div></div><div id="ocrDetected" class="detected"></div><div class="form-note">* Manche HEIC-Fotos lassen sich im Browser nicht verarbeiten. Im Zweifel einen PNG-/JPG-Screenshot wählen. Bitte erkannte Werte vor dem Speichern prüfen.</div></div>
+<label class="field hidden" id="distanceWrap">Kilometer<input id="entryDistance" type="text" inputmode="decimal" placeholder="z. B. 9,24"></label>
+<label class="field hidden" id="durationWrap">Dauer (Minuten oder HH:MM:SS)<input id="entryDuration" type="text" placeholder="z. B. 50:32"></label>
+<label class="field hidden" id="paceWrap">Pace (min/km)<input id="entryPace" type="text" placeholder="z. B. 6:15"></label>
+<label class="field hidden" id="hrWrap">Ø Herzfrequenz (bpm)<input id="entryHr" type="number" min="30" max="240" placeholder="z. B. 145"></label>
+<label class="field hidden" id="elevationWrap">Höhenmeter (m)<input id="entryElevation" type="number" min="0" max="10000" placeholder="optional"></label>
+</div>
+<p id="modalInfo" class="form-note">Anspruchsvolle Sätze mit RIR 0–3 zählen zu deinem Wochenvolumen.</p>
+<div class="actions"><button type="button" class="btn outline" id="cancelModal">Abbrechen</button><button type="submit" class="btn primary" id="saveEntry">✓ Eintrag speichern</button></div></form></div></dialog>
+<dialog id="planDialog"><div class="modal-head"><div><div class="eyebrow">Dein Trainingskalender</div><h2 id="planModalTitle">Training vorplanen</h2></div><button class="close" type="button" id="planClose" aria-label="Schließen">×</button></div><div class="modal-body"><p class="form-note">Ein Plan ist noch kein absolviertes Training: Er wird im Kalender angezeigt, zählt aber nicht für Wochenziele oder Score.</p>
+<form id="planForm"><div class="formfields">
+<label class="field">Datum<input id="planDate" type="date" required></label>
+<label class="field">Trainingsart<select id="planKind"><option value="strength">💪 Kraft</option><option value="functional">🟡 Funktionell / Mobilität</option><option value="run">🏃 Laufen</option><option value="football">⚽ Fußball</option><option value="stairs">🪜 Treppen</option><option value="rest">💤 Ruhetag</option></select></label>
+<label class="field wide">Bezeichnung (optional)<input id="planTitle" type="text" maxlength="80" placeholder="z. B. Fußballtraining / Oberkörper / Zone 2"></label>
+<label class="field wide" id="planExerciseWrap">Geplante Übung<select id="planExercise"></select></label>
+<label class="field" id="planSetsWrap">Sätze<input id="planSets" type="number" min="1" max="30" step="1" value="3"></label>
+<label class="field" id="planRepsWrap">Wiederholungen / Satz<input id="planReps" type="number" min="1" max="300" step="1" value="10"></label><label class="field hidden" id="planSecondsWrap">Haltezeit je Versuch (Sekunden)<input id="planSeconds" type="number" min="1" max="3600" step="1" value="20"></label>
+<label class="field hidden" id="planDistanceWrap">Geplante Kilometer<input id="planDistance" type="number" min="0" max="500" step="0.1" inputmode="decimal" placeholder="z. B. 8"></label>
+<label class="field hidden" id="planDurationWrap">Dauer (Minuten)<input id="planDuration" type="number" min="0" max="5000" step="1" placeholder="z. B. 90"></label>
+<label class="field wide">Geplante Belastung<select id="planIntensity"><option value="low">Locker / regenerativ</option><option value="moderate" selected>Moderat</option><option value="high">Intensiv / hart</option></select></label>
+<label class="field wide">Notizen<textarea id="planNote" rows="3" maxlength="500" placeholder="z. B. vor dem Turnier keine schweren Beine"></textarea></label>
+</div><div class="actions"><button class="btn outline" type="button" id="planCancel">Abbrechen</button><button type="submit" class="btn primary" id="planSave">✓ Plan speichern</button></div></form></div></dialog>
+<dialog id="smartDialog"><div class="modal-head"><div><div class="eyebrow">Intelligente Schnelleingabe V6</div><h2>🎙️ Sprache & Text</h2></div><button class="close" id="smartClose" aria-label="Schließen">×</button></div><div class="modal-body">
+<p class="form-note">Beispiele: „Brustpresse 63kg x 11 und x 9“, „3 Sätze Klimmzüge 12, 10, 9“, „Handstand 3 x 20 sek“ oder „Pallof Press 2x10“. Fehlende Angaben kannst du in der Vorschau ergänzen. Die Texterkennung erfolgt lokal ohne KI-Server. Browser-Sprachdiktat kann zur Spracherkennung einen Dienst des Browseranbieters nutzen.</p>
+<label class="field">Training beschreiben<textarea id="smartText" rows="4" placeholder="Heute 3 Sätze Klimmzüge: 12, 10, 9 …"></textarea></label>
+<div class="actions" style="justify-content:space-between;flex-wrap:wrap"><button class="btn" id="smartMic" type="button">🎙️ Diktieren</button><button class="btn primary" id="smartParse" type="button">✦ Einträge erkennen</button></div>
+<p class="ocr-status" id="smartStatus" role="status"></p><div id="smartPreview" class="daylist"></div>
+<div class="smart-tools"><button type="button" class="btn small" id="smartAddSet">＋ Satz</button><button type="button" class="btn small" id="smartAddExercise">＋ Übung</button><button type="button" class="btn small" id="smartToggleNew">＋ Neue Übung anlegen</button></div>
+<div id="smartNewExerciseWrap" class="smart-new hidden"><label class="field">Name<input id="smartNewName" placeholder="z. B. Turkish Get-Up" maxlength="80"></label><label class="field">Kategorie<select id="smartNewKind"><option value="functional">🟡 Funktionell</option><option value="strength">🔴 Kraft</option></select></label><label class="field" id="smartNewMuscleWrap">Hauptmuskelgruppe<select id="smartNewMuscle"><option value="chest">Brust</option><option value="back">Rücken</option><option value="shoulders">Schultern</option><option value="arms">Arme</option><option value="quads">Quadrizeps</option><option value="hamstrings">Hamstrings</option><option value="calves">Waden</option><option value="core">Core</option></select></label><button class="btn primary small" type="button" id="smartCreateExercise">Übung hinzufügen</button></div>
+<div class="actions"><button class="btn outline" id="smartDiscard" type="button">Verwerfen</button><button class="btn primary hidden" id="smartSave" type="button">✓ Bestätigen & speichern</button></div></div></dialog>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script>
+'use strict';
+const KEY='training-hq-v2-data';
+const defaults={entries:[],plans:[],customExercises:[],goalSchema:4,goals:{chest:10,back:12,shoulders:6,arms:4,quads:5,hamstrings:4,runKm:10,footballKm:10}};
+const mapMuscle={'Klimmzüge':'back','Liegestütze':'chest','Liegestütze (Füße erhöht)':'chest','Brustpresse':'chest','Rudern':'back','Latzug':'back','Schulterdrücken':'shoulders','Seitheben':'shoulders','Dips':'chest','Bizepscurls':'arms','Trizepsdrücken':'arms','Beinpresse':'quads','Kniebeugen':'quads','Squatsprünge':'quads','Beinbeuger':'hamstrings','Rumänisches Kreuzheben':'hamstrings','Ausfallschritte':'quads','Wadenheben':'calves','Core':'core','Bankdrücken':'chest','Crunches (Maschine)':'core','Trizeps über Kopf':'arms','Face Pulls':'shoulders'};
+const builtInFunctional=['Plank','Reverse Plank','Hollow Hold','Unterarmstütz','Handstand','Kettlebell Swings','Goblet Squats','Pallof Press','Cable Chops','Dead Bug','Side Plank','Einbeinstand','Hüftbeuger-Mobilisation','Sprunggelenksmobilität','Brustwirbelsäulenrotation','Copenhagen Plank','Einbeiniges RDL','Skater Jumps','Farmer’s Carry','Ausfallschritte (funktionell)','Kniebeugen (Mobilität)'];
+const builtInStrengthExtras=['Bankdrücken','Crunches (Maschine)','Trizeps über Kopf','Face Pulls'];
+const isFunctionalExercise=name=>builtInFunctional.includes(name)||db.customExercises.some(e=>e.name===name&&e.kind==='functional');
+const exerciseKind=name=>isFunctionalExercise(name)?'functional':'strength';
+// Halte-/Balance-Skills: Eine Zahl pro Versuch, kein Wiederholungsfeld.
+const isTimedExercise=name=>/^(?:handstand|plank|reverse plank|side plank|copenhagen plank|unterarmstütz|hollow hold|einbeinstand)(?:\b|$)/i.test(String(name||'').trim());
+const muscleNames={chest:'Brust',back:'Rücken',shoulders:'Schultern',arms:'Arme (direkt)',quads:'Quadrizeps',hamstrings:'Hamstrings',calves:'Waden',core:'Core'};
+const muscleColors={chest:'#72e9b9',back:'#8cbbff',shoulders:'#cbb1ff',arms:'#f5bc98',quads:'#ffd788',hamstrings:'#f39caa'};
+const $=id=>document.getElementById(id);
+const nowISO=()=>{let d=new Date();return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')};
+const dateObj=s=>new Date(s+'T12:00:00');
+const dateISO=d=>[d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-');
+const shift=(s,n)=>{let d=dateObj(s);d.setDate(d.getDate()+n);return dateISO(d)};
+const monday=s=>shift(s,-(dateObj(s).getDay()+6)%7);
+const monthISO=s=>s.slice(0,7);
+const fmtDay=s=>dateObj(s).toLocaleDateString('de-DE',{weekday:'long',day:'numeric',month:'long'});
+const fmtMonth=s=>dateObj(s+'-01').toLocaleDateString('de-DE',{month:'long',year:'numeric'});
+const km=n=>Number(n||0).toLocaleString('de-DE',{maximumFractionDigits:2});
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid=()=>('t'+Date.now()+'-'+Math.random().toString(36).slice(2));
+let storageOK=true;let db;
+try{let v=localStorage.getItem(KEY);db=v?JSON.parse(v):structuredClone(defaults)}catch(e){db=structuredClone(defaults);storageOK=false}
+if(!db||!Array.isArray(db.entries))db=structuredClone(defaults);
+// Einmalige, nicht-destruktive Übernahme aus V2/V3. Entfernte Ziele werden NIE wieder ergänzt.
+function migrateGoals(value){
+ if(value.goalSchema===4 && value.goals && typeof value.goals==='object' && !Array.isArray(value.goals))return {...value.goals};
+ const old=value.goals && typeof value.goals==='object' && !Array.isArray(value.goals)?value.goals:null;
+ return {...(old||defaults.goals),runKm:old?.runKm??10,footballKm:old?.footballKm??10};
+}
+db.goals=migrateGoals(db);db.goalSchema=4;
+db.customExercises=Array.isArray(db.customExercises)?db.customExercises:[];
+db.plans=Array.isArray(db.plans)?db.plans:[];
+for(const ex of db.customExercises){if(ex&&ex.name&&ex.muscle)mapMuscle[ex.name]=ex.muscle;}
+function persist(){try{localStorage.setItem(KEY,JSON.stringify(db));storageOK=true}catch(e){storageOK=false} $('storageWarning').classList.toggle('hidden',storageOK);}
+$('storageWarning').classList.toggle('hidden',storageOK);
+let pendingPlanId=null;
+let selected=nowISO(),shownMonth=monthISO(selected),historyWeek=monday(selected),activeView='overview',mode='strength',editId=null,previewUrl=null,lastQuick=null,toastTimer=null;
+const icons={strength:'💪',functional:'🟡',run:'🏃',football:'⚽',stairs:'🪜',rest:'💤'};
+// Prägnante, lokal gezeichnete Übungssymbole (keine externen Bilder).
+const svgIcons={
+ pullup:`<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 5h26M7 5v5m18-5v5"/><circle cx="16" cy="13" r="3"/><path d="M10 10l2 2m10-2l-2 2M12 17l-4 7m12-7l4 7M12 18l-2 9m10-9l2 9M8 10l3 4m13-4l-3 4"/></svg>`,
+ pushup:`<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M2 27h28M6 21l8-5 9 4 4 5M13 16l-3 8M22 20l-2 5"/><circle cx="7" cy="18" r="3"/></svg>`,
+ legs:`<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M10 4l-2 10 7 4-2 10M22 4l2 10-7 4 3 10M10 4h12M8 14l7 2 9-2"/></svg>`,
+ dumbbell:`<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M11 16h10M5 11v10m4-13v16m14-16v16m4-13v10M5 16h4m14 0h4"/></svg>`
+};
+function exerciseGlyph(exercise){
+ if(/handstand/i.test(exercise))return 'dumbbell';
+ if(/klimm|pull.?up|latzug/i.test(exercise))return 'pullup';
+ if(/liegest[uü]tze|push.?up|dips|brustpresse/i.test(exercise))return 'pushup';
+ if(['quads','hamstrings','calves'].includes(mapMuscle[exercise])||/squat|bein|kniebeug|ausfall|waden|kreuzheben/i.test(exercise))return 'legs';
+ return 'dumbbell';
+}
+function iconForEntry(e){return entryKind(e)==='strength'?svgIcons[exerciseGlyph(e.exercise||'')]:icons[entryKind(e)]||'🟡';}
+function metricCatalog(){
+ const base={chest:{label:'Brust',unit:'Sätze',color:'#ef626f'},back:{label:'Rücken',unit:'Sätze',color:'#ef626f'},shoulders:{label:'Schultern',unit:'Sätze',color:'#ef626f'},arms:{label:'Arme (direkt)',unit:'Sätze',color:'#ef626f'},quads:{label:'Quadrizeps',unit:'Sätze',color:'#ef626f'},hamstrings:{label:'Hamstrings',unit:'Sätze',color:'#ef626f'},calves:{label:'Waden',unit:'Sätze',color:'#ef626f'},core:{label:'Core',unit:'Sätze',color:'#ef626f'},strengthSets:{label:'Kraft gesamt',unit:'Sätze',color:'#ef626f'},functionalSets:{label:'Funktionell / Mobilität',unit:'Sätze',color:'#f5cd56'},runKm:{label:'Laufen',unit:'km',color:'#47c58b'},footballKm:{label:'Fußball',unit:'km',color:'#68c7f4'}};
+ for(const name of Object.keys(mapMuscle))base['exercise:'+name]={label:name,unit:'Sätze',color:'#ef626f'};
+ for(const name of [...builtInFunctional,...db.customExercises.filter(e=>e.kind==='functional').map(e=>e.name)])base['exercise:'+name]={label:name,unit:'Sätze',color:'#f5cd56'};
+ return base;
+}
+function metricValue(key,sum,ents){
+ if(key==='runKm')return sum.run;
+ if(key==='footballKm')return sum.football;
+ if(key==='strengthSets')return sum.strengthSets;
+ if(key==='functionalSets')return sum.functionalSets;
+ if(key.startsWith('exercise:'))return ents.filter(e=>e.exercise===key.slice(9)).reduce((n,e)=>n+(entryKind(e)==='functional'?(Number(e.sets)||0):effective(e)),0);
+ return sum.v[key]??0;
+}
+const entryKind=e=>e.kind||((e.exercise==='Laufen')?'run':(e.exercise==='Fußball')?'football':(e.exercise==='Treppen')?'stairs':(e.exercise==='Ruhetag')?'rest':'strength');
+const allFor=s=>db.entries.filter(e=>e.date===s).sort((a,b)=>(a.created||0)-(b.created||0));
+const weekEntries=s=>{let m=monday(s),end=shift(m,7);return db.entries.filter(e=>e.date>=m&&e.date<end)};
+const effective=e=>entryKind(e)==='strength'&&Number(e.rir)<=3?Number(e.sets)||0:0;
+function summarize(ents){let v={chest:0,back:0,shoulders:0,arms:0,quads:0,hamstrings:0,calves:0,core:0};let run=0,football=0,stairs=0,runCount=0,footballCount=0,functionalSets=0,functionalCount=0;let days=new Set();for(let e of ents){let kind=entryKind(e);if(kind!=='rest')days.add(e.date);if(kind==='strength'){let k=mapMuscle[e.exercise];if(k)v[k]+=effective(e)}if(kind==='functional'){functionalSets+=Number(e.sets)||0;functionalCount++}if(kind==='run'){run+=+e.distance||0;runCount++}if(kind==='football'){football+=+e.distance||0;footballCount++}if(kind==='stairs')stairs++}return {v,run,football,stairs,runCount,footballCount,strengthSets:Object.values(v).reduce((a,b)=>a+b,0),functionalSets,functionalCount,days:days.size,total:ents.length}}
+const weekSummary=s=>summarize(weekEntries(s));
+function showToast(msg){$('toast').textContent=msg;$('toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('show'),3100)}
+function nav(view){activeView=view;document.querySelectorAll('.view').forEach(el=>el.classList.toggle('active',el.id==='view-'+view));document.querySelectorAll('[data-view]').forEach(el=>el.classList.toggle('active',el.dataset.view===view));render();window.scrollTo({top:0,behavior:'smooth'})}
+document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>nav(b.dataset.view)));
+document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>nav(b.dataset.go)));
+function choose(s){selected=s;shownMonth=monthISO(s);historyWeek=monday(s);render()}
+function chooseWeek(s){selected=monday(s);historyWeek=monday(s);shownMonth=monthISO(selected);render()}
+function calendarGroups(ents,planned){
+ // Eine Kachel je sichtbarem Symbol, auch wenn mehrere Übungen dasselbe Symbol benutzen.
+ const groups=new Map();
+ const info=(e)=>{const kind=entryKind(e),glyph=kind==='strength'?exerciseGlyph(e.exercise||''):'category';return {kind,key:kind+':'+glyph,glyph,icon:iconForEntry(e)};};
+ for(const e of ents){
+  const x=info(e),sets=['strength','functional'].includes(x.kind)?Math.max(1,Number(e.sets)||1):1;
+  if(!groups.has(x.key))groups.set(x.key,{...x,count:0,labels:new Set(),planned:false});
+  const g=groups.get(x.key);g.count+=sets;g.labels.add(['strength','functional'].includes(x.kind)?e.exercise:({run:'Laufen',football:'Fußball',stairs:'Treppen',rest:'Ruhetag'})[x.kind]);
+ }
+ for(const p of planned){
+  const x=info(p);if(groups.has(x.key))continue;
+  groups.set(x.key,{...x,count:0,labels:new Set([['strength','functional'].includes(x.kind)?p.exercise:({run:'Laufen',football:'Fußball',stairs:'Treppen',rest:'Ruhetag'})[x.kind]]),planned:true});
+ }
+ return Array.from(groups.values());
+}
+function renderCalendar(container,month){
+ let first=month+'-01',firstDow=(dateObj(first).getDay()+6)%7,daysIn=new Date(+month.slice(0,4),+month.slice(5),0).getDate(),cells=Math.ceil((firstDow+daysIn)/7)*7,start=shift(first,-firstDow);
+ let html=['Mo','Di','Mi','Do','Fr','Sa','So'].map(d=>`<div class="weekname">${d}</div>`).join('');
+ for(let i=0;i<cells;i++){
+  let d=shift(start,i),ents=allFor(d),planned=db.plans.filter(p=>p.date===d),outside=monthISO(d)!==month;
+  const groups=calendarGroups(ents,planned);
+  let tags=groups.slice(0,6).map(g=>{
+   const title=[...g.labels].join(', ')+(g.planned?' (geplant)':` · ${g.count} ${['strength','functional'].includes(g.kind)?'Sätze/Versuche':'Einheiten'}`);
+   return `<span class="tag ${g.kind} ${g.planned?'planned':''}" title="${esc(title)}" aria-label="${esc(title)}">${g.icon}${g.count>0?`<b class="tag-number">${g.count}</b>`:''}</span>`;
+  }).join('');
+  if(groups.length>6)tags+=`<span class="tag more">+${groups.length-6}</span>`;
+  html+=`<button type="button" class="day ${outside?'other':''} ${d===nowISO()?'today':''} ${d===selected?'selected':''}" data-date="${d}" aria-label="${esc(fmtDay(d))}, ${ents.length} Einträge"><span class="day-head"><span class="day-date">${dateObj(d).getDate()}</span>${d===nowISO()?'<i class="todaydot"></i>':''}</span>${tags?`<span class="day-tags">${tags}</span>`:'<span class="day-empty">·</span>'}</button>`;
+ }
+ $(container).innerHTML=html;$(container).querySelectorAll('[data-date]').forEach(b=>b.onclick=()=>choose(b.dataset.date));
+}
+function weekTile(s){
+ const mon=monday(s),sum=weekSummary(mon),days=Array.from({length:7},(_,i)=>allFor(shift(mon,i)));
+ const highlighted=days.map(es=>{
+  const kinds=[...new Set(es.map(e=>entryKind(e)))];const colors=[];
+  if(kinds.includes('strength'))colors.push('#ef626f');if(kinds.includes('run')||kinds.includes('stairs'))colors.push('#47c58b');if(kinds.includes('football'))colors.push('#68c7f4');if(kinds.includes('functional'))colors.push('#f5cd56');
+  const bg=colors.length>1?`linear-gradient(90deg,${colors.map((c,i)=>`${c} ${i/colors.length*100}% ${(i+1)/colors.length*100}%`).join(',')})`:(colors[0]||'#293d4b');
+  return `<i style="background:${bg}"></i>`;
+ }).join('');
+ const iconEntries=[...new Map(weekEntries(mon).filter(e=>['strength','functional'].includes(entryKind(e))).map(e=>[e.exercise,e])).values()].slice(0,5);
+ const exerciseIcons=iconEntries.length?`<div class="week-exercises" aria-label="Kraftübungen dieser Woche">${iconEntries.map(e=>`<span class="tag ${entryKind(e)}" title="${esc(e.exercise)}">${iconForEntry(e)}</span>`).join('')}</div>`:'';
+ const score=scoreWeek(mon);const scoreLabel=score?`${score.total}/100 Punkte${mon===monday(nowISO())?' (laufend)':''}`:'Noch kein Score';
+ return `<button class="week-tile ${mon===monday(selected)?'active':''}" data-week="${mon}" aria-label="KW ${getWeek(mon)}: ${sum.strengthSets} Kraft-Sätze, ${km(sum.run)} Kilometer Laufen, ${km(sum.football)} Kilometer Fußball – Details öffnen"><span>KW ${getWeek(mon)} · ${mon.slice(5).replace('-','.')}.</span><div class="week-metrics"><div><b>${sum.strengthSets}</b><small>💪 Kraft-Sätze</small></div><div><b>${km(sum.run)}</b><small>🏃 Lauf-km</small></div><div><b>${km(sum.football)}</b><small>⚽ Fußball-km</small></div></div><div class="week-mini">${highlighted}</div>${exerciseIcons}<div class="week-foot">🏅 ${scoreLabel} · 🟡 ${sum.functionalSets} funktionelle Sätze · Details ›</div></button>`;
+}
+function getWeek(s){let d=dateObj(s);d.setHours(0,0,0,0);d.setDate(d.getDate()+4-(d.getDay()||7));let yearStart=new Date(d.getFullYear(),0,1);return Math.ceil((((d-yearStart)/86400000)+1)/7)}
+function tileWeeks(id,count){let anchor=monday(nowISO()),weeks=Array.from({length:count},(_,i)=>shift(anchor,-7*i));$(id).innerHTML=weeks.map(weekTile).join('');$(id).querySelectorAll('[data-week]').forEach(b=>b.onclick=()=>{chooseWeek(b.dataset.week);if(id==='weekHistory')nav('history');else render()})}
+function fmtDuration(v){let secs=Math.round(Number(v||0)*60),h=Math.floor(secs/3600),m=Math.floor(secs%3600/60),s=secs%60;return h?`${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`:`${m}:${String(s).padStart(2,'0')}`}
+function desc(e){let k=entryKind(e);if(k==='functional')return isTimedExercise(e.exercise)?`${e.sets||1} ${Number(e.sets)===1?'Versuch':'Versuche'} · ${e.seconds?e.seconds+' Sek. Bestzeit je Versuch':'Zeit nicht erfasst'}`:`${e.sets||1} × ${e.seconds?e.seconds+' Sek.':(e.reps||'–')+' Wdh.'}${e.weight!==''&&e.weight!=null?' · '+e.weight+' kg':''}`;if(k==='strength')return `${e.sets} × ${e.reps} Wdh.${e.weight!==''&&e.weight!=null?' · '+e.weight+' kg':''} · RIR ${e.rir}${effective(e)?' · zählt als '+effective(e)+' Satz/Sätze':''}`;if(k==='rest')return 'Regeneration';let parts=[];if(e.distance>0)parts.push(km(e.distance)+' km');if(e.duration>0)parts.push(fmtDuration(e.duration)+(e.duration>=60?' h':' min'));if(e.pace)parts.push('Pace '+e.pace+'/km');if(e.hr)parts.push('Ø '+e.hr+' bpm');if(e.elevation)parts.push(e.elevation+' hm');return parts.length?parts.join(' · '):'Ohne Kennzahlen'}
+function entryName(e){let k=entryKind(e);return e.title|| (k==='strength'||k==='functional'?e.exercise:k==='run'?'Laufen':k==='football'?'Fußball':k==='stairs'?'Treppen':'Ruhetag')}
+function renderEntry(e){return `<div class="log-entry ${entryKind(e)}"><div class="log-icon">${iconForEntry(e)}</div><div class="log-main"><b>${esc(entryName(e))}</b><span>${esc(desc(e))}${e.title&&['strength','functional'].includes(entryKind(e))?' · '+esc(e.exercise):''}${e.origin==='strava'?' · 📷 Strava':''}</span></div><div class="log-actions"><button type="button" data-edit="${esc(e.id)}" aria-label="Bearbeiten">✎</button><button type="button" data-delete="${esc(e.id)}" aria-label="Löschen">×</button></div></div>`}
+function bindLogs(root){root.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>editEntry(b.dataset.edit));root.querySelectorAll('[data-delete]').forEach(b=>b.onclick=()=>deleteEntry(b.dataset.delete))}
+function dayLogs(id){const logged=allFor(selected),planned=db.plans.filter(p=>p.date===selected).sort((a,b)=>(a.created||0)-(b.created||0));$(id).innerHTML=logged.map(renderEntry).join('')+planned.map(renderPlan).join('')||'<div class="empty">Für diesen Tag gibt es noch keine Einträge.<br>Du kannst ein Training eintragen oder planen.</div>';bindLogs($(id));bindPlanActions($(id));}
+function renderVolumes(sum){
+ const keys=Object.keys(db.goals),catalog=metricCatalog(),ents=weekEntries(selected);
+ $('volumeList').innerHTML=keys.length?keys.map(k=>{
+  let meta=catalog[k]||{label:k,unit:'Sätze',color:'#ef626f'};
+  let n=metricValue(k,sum,ents),goal=Number(db.goals[k])||0,missing=Math.max(0,goal-n),pct=goal?Math.min(100,n/goal*100):100;
+  return `<div class="vol-item"><div class="vol-top"><strong>${esc(meta.label)}</strong><span><b style="color:var(--text)">${km(n)}</b> / ${km(goal)} ${meta.unit}</span></div><div class="track" style="--clr:${meta.color}"><div style="width:${pct}%"></div></div><div class="goal-detail"><span>${missing?`Noch ${km(missing)} ${meta.unit} bis zum Ziel`:'Ziel erreicht'}</span><span>${Math.round(pct)} %</span></div></div>`;
+ }).join(''):'<div class="empty">Noch keine Wochenziele. Du kannst sie unter „Daten & Ziele“ hinzufügen.</div>';
+}
+function coachText(sum,ents){let msgs=[];const miss=['chest','back'].filter(k=>Object.hasOwn(db.goals,k)).map(k=>({k,miss:Math.max(0,(+db.goals[k]||0)-sum.v[k])}));let done=miss.filter(x=>x.miss===0).length;let dayNo=(dateObj(selected).getDay()+6)%7;
+msgs.push(`<p><b>${sum.days} aktive Tage</b> in der ausgewählten Woche; ${sum.runCount} Lauf- und ${sum.footballCount} Fußball-Einheiten erfasst.</p>`);
+if(!ents.length)msgs.push('<p>Hier ist noch nichts erfasst. Starte mit einem einzelnen Satz Klimmzüge oder übernimm dein nächstes Strava-Training.</p>');
+else if(miss.length===2&&done===2)msgs.push('<p>✅ Brust- und Rückenziel sind erreicht. Weitere harte Sätze sind diese Woche nicht zwingend nötig.</p>');
+else if(miss.some(x=>x.miss))msgs.push(`<p>💪 ${miss.filter(x=>x.miss).map(x=>muscleNames[x.k]+': noch '+x.miss+' Sätze').join(' · ')}. Verteile fehlende Sätze möglichst über mehrere Tage.</p>`);
+if(sum.footballCount>=2||sum.football>=12)msgs.push('<p>⚽ Deine Fußballbelastung ist diese Woche schon hoch. Zusätzliche harte Beinintervalle oder Beintage solltest du an deine Erholung anpassen.</p>');
+else if(sum.footballCount)msgs.push('<p>⚽ Fußball ist bereits eingeplant bzw. absolviert. Vor intensiven Fußballtagen lieber keine ermüdenden Hamstring- und Bein-Sätze.</p>');
+if(sum.runCount===0&&sum.footballCount===0&&ents.length)msgs.push('<p>🏃 Bisher keine Lauf- oder Fußballkilometer eingetragen. Vielleicht fehlt noch ein Strava-Import?</p>');
+if(sum.v.back>=16||sum.v.chest>=16)msgs.push('<p>⚠️ Das Oberkörpervolumen ist bereits hoch. Achte besonders auf Ellenbogen, Schultern und deine Leistung im nächsten Training.</p>');
+if(dayNo>=4&&miss.reduce((n,x)=>n+x.miss,0)>=10)msgs.push('<p>Wochenziele sind Orientierung, kein Grund, viele harte Sätze kurz vor einem Spiel nachzuholen.</p>');
+$('coachText').innerHTML=msgs.join('')}
+function render(){let ents=weekEntries(selected),sum=summarize(ents),mon=monday(selected);$('weekRange').textContent=`KW ${getWeek(mon)} · ${fmtDay(mon)} – ${fmtDay(shift(mon,6))}`;
+$('greeting').textContent=mon===monday(nowISO())?'Deine Woche im Blick.':'Deine Trainingswoche.';
+$('statSets').textContent=sum.v.chest+sum.v.back+sum.v.shoulders+sum.v.arms;$('statRun').innerHTML=`${km(sum.run)} <small>km</small>`;$('statRunSub').textContent=`${sum.runCount} Einheiten`;$('statFoot').innerHTML=`${km(sum.football)} <small>km</small>`;$('statFootSub').textContent=`${sum.footballCount} Einheiten`;$('statDays').innerHTML=`${sum.days} <small>/ 7</small>`;$('functionalOverview').textContent=`${sum.functionalSets} Sätze in dieser Woche · separat von Kraft erfasst`;
+$('monthTitle').textContent=fmtMonth(shownMonth);$('calendarMonthTitle').textContent=fmtMonth(shownMonth);renderCalendar('overviewCalendar',shownMonth);renderCalendar('bigCalendar',shownMonth);
+$('selectedDayTitle').textContent=fmtDay(selected);$('calendarDayTitle').textContent=fmtDay(selected);dayLogs('selectedDayEntries');dayLogs('calendarDayEntries');renderVolumes(sum);coachText(sum,ents);tileWeeks('weekHistory',8);tileWeeks('historyWeeks',12);renderHistory();renderPlanning();renderRecovery();renderScoreOverview();renderProgress();}
+function renderHistory(){
+ let mon=historyWeek,sum=weekSummary(mon);
+ $('historyTitle').textContent=`KW ${getWeek(mon)} · ${fmtDay(mon)} – ${fmtDay(shift(mon,6))}`;
+ $('historyKPIs').innerHTML=`<div class="mini-kpi strength"><strong>${sum.strengthSets}</strong><span>💪 Kraft-Sätze (RIR 0–3)</span></div><div class="mini-kpi run"><strong>${km(sum.run)} km</strong><span>🏃 Laufen · ${sum.runCount} Einheiten</span></div><div class="mini-kpi football"><strong>${km(sum.football)} km</strong><span>⚽ Fußball · ${sum.footballCount} Einheiten</span></div><div class="mini-kpi functional"><strong>${sum.functionalSets}</strong><span>🟡 Funktionell / Mobilität · Sätze</span></div>`;
+ $('historyScore').innerHTML=scoreMarkup(mon, true);
+ let html='';for(let i=0;i<7;i++){let d=shift(mon,i),es=allFor(d);if(es.length)html+=`<div class="daygroup"><h3>${esc(fmtDay(d))}</h3>${es.map(renderEntry).join('')}</div>`;}
+ $('historyEntries').innerHTML=html||'<div class="empty">In dieser Woche wurden noch keine Einheiten erfasst.</div>';bindLogs($('historyEntries'));
+}
+const monthChange=n=>{let y=+shownMonth.slice(0,4),m=+shownMonth.slice(5);shownMonth=dateISO(new Date(y,m-1+n,1)).slice(0,7);render()};
+$('monthPrev').onclick=() =>monthChange(-1);$('monthNext').onclick=()=>monthChange(1);$('calPrev').onclick=()=>monthChange(-1);$('calNext').onclick=()=>monthChange(1);$('calToday').onclick=()=>choose(nowISO());$('jumpToday').onclick=()=>choose(nowISO());
+function syncTimedFields(){const timed=mode==='functional'&&isTimedExercise($('exercise').value);for(const id of ['setsWrap','repsWrap','weightWrap'])$(id).classList.toggle('hidden',timed);$('secondsWrap').classList.toggle('hidden',mode!=='functional'||timed);$('entryHoldTimesWrap').classList.toggle('hidden',!timed);$('entrySets').required=(mode==='strength'||mode==='functional')&&!timed;$('entryReps').required=(mode==='strength'||mode==='functional')&&!timed;$('entryHoldTimes').required=timed;if(timed)$('modalInfo').textContent='Halteübung: Jede durch Komma getrennte Zeit ist ein Versuch. Erfasst wird die beste Haltezeit pro Durchführung, ohne Wiederholungen.';}
+function switchMode(next){mode=next;document.querySelectorAll('[data-mode]').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode));let strength=mode==='strength',functional=mode==='functional',exerciseMode=strength||functional,rest=mode==='rest',activity=!exerciseMode&&!rest;for(let id of ['exerciseWrap','setsWrap','repsWrap','weightWrap','rirWrap'])$(id).classList.toggle('hidden',!exerciseMode);$('rirWrap').classList.toggle('hidden',!strength);$('secondsWrap').classList.toggle('hidden',!functional);refreshExercises();for(let id of ['distanceWrap','durationWrap','hrWrap','elevationWrap'])$(id).classList.toggle('hidden',!activity);$('paceWrap').classList.toggle('hidden',mode!=='run');$('ocrWrap').classList.toggle('hidden',!(mode==='run'||mode==='football'));$('entryTitleWrap').classList.toggle('hidden',rest);$('modalInfo').textContent=functional?'Funktionelle Sätze zählen separat und nicht zum roten Muskelaufbau-Volumen. Für Halteübungen kannst du Sekunden statt Wiederholungen erfassen.':strength?'Anspruchsvolle Sätze mit RIR 0–3 zählen zum wöchentlichen Kraftvolumen.':rest?'Ein Ruhetag wird im Kalender angezeigt, zählt aber nicht als aktiver Trainingstag.':'Strava-Screenshots können Kilometer, Zeit, Tempo und Puls übernehmen. Fehlende Werte kannst du manuell ergänzen.';$('modalTitle').textContent=({strength:'Krafttraining',functional:'Funktionalität & Mobilität',run:'Lauf erfassen',football:'Fußball erfassen',stairs:'Treppen erfassen',rest:'Ruhetag'})[mode];['entrySets','entryReps'].forEach(id=>$(id).required=exerciseMode);syncTimedFields()}
+$('exercise').addEventListener('change',syncTimedFields);
+function resetModal(){pendingPlanId=null;editId=null;latestOCR=false;$('saveEntry').textContent='✓ Eintrag speichern';$('entryForm').reset();$('entryDate').value=selected;$('entrySets').value=1;$('entryReps').value=10;$('entryRir').value='2';$('ocrStatus').textContent='';$('ocrDetected').innerHTML='';$('ocrProgress').classList.add('hidden');$('ocrBar').style.width='0';if(previewUrl){URL.revokeObjectURL(previewUrl);previewUrl=null}$('ocrPreview').src='';$('ocrPreview').classList.add('hidden');$('ocrFile').value='';switchMode('strength')}
+function openEntry(next='strength',exercise=''){resetModal();switchMode(next);if(exercise){$('exercise').value=exercise;const saved=db.entries.filter(e=>['strength','functional'].includes(entryKind(e))&&e.exercise===exercise).sort((a,b)=>(b.created||0)-(a.created||0))[0];$('entryReps').value=saved?+saved.reps:exercise==='Liegestütze'?30:exercise==='Klimmzüge'?10:10;syncTimedFields();lastQuick=exercise}let dialog=$('entryDialog');if(!dialog.open)dialog.showModal();}
+function closeEntry(){$('entryDialog').close()}
+$('modalClose').onclick=closeEntry;$('cancelModal').onclick=closeEntry;$('entryDialog').addEventListener('click',e=>{if(e.target===$('entryDialog'))closeEntry()});
+document.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>switchMode(b.dataset.mode));
+
+$('functionalQuickAdd').onclick=()=>openEntry('functional');$('headerAdd').onclick=()=>openEntry('strength');$('addOther').onclick=()=>openEntry('strength');['dayAdd','calAdd','calDayAdd','historyAdd'].forEach(id=>$(id).onclick=()=>openEntry('strength'));
+function editEntry(id){const e=db.entries.find(x=>x.id===id);if(!e)return;openEntry(entryKind(e));editId=id;$('entryDate').value=e.date;$('entryTitle').value=e.title||'';if(mode==='strength'||mode==='functional'){$('exercise').value=e.exercise;$('entrySets').value=e.sets;$('entryReps').value=e.reps;$('entryWeight').value=e.weight??'';$('entryRir').value=e.rir??2;$('entrySeconds').value=e.seconds??'';if(isTimedExercise(e.exercise)){$('entryHoldTimes').value=Array(Math.max(1,Math.min(Number(e.sets)||1,30))).fill(e.seconds??'').join(', ');syncTimedFields();}}else if(mode!=='rest'){$('entryDistance').value=e.distance??'';$('entryDuration').value=e.duration??'';$('entryPace').value=e.pace||'';$('entryHr').value=e.hr||'';$('entryElevation').value=e.elevation||''}$('saveEntry').textContent='✓ Änderungen speichern'}
+function deleteEntry(id){if(!confirm('Diesen Eintrag wirklich löschen?'))return;db.entries=db.entries.filter(e=>e.id!==id);persist();render();showToast('Eintrag gelöscht')}
+function decimal(x){return Number(String(x||'').replace(/\s/g,'').replace(',','.'))}
+function durationMinutes(v){let s=String(v||'').trim();if(!s)return 0;if(/^\d+(?:[.,]\d+)?$/.test(s))return decimal(s);let bits=s.split(':').map(Number);if(bits.some(x=>!Number.isFinite(x)))return NaN;if(bits.length===2&&bits[1]<60)return bits[0]+bits[1]/60;if(bits.length===3&&bits[1]<60&&bits[2]<60)return bits[0]*60+bits[1]+bits[2]/60;return NaN}
+function parseHoldTimes(text){
+ const input=String(text||'').trim();if(!input)return null;
+ const parts=input.split(/[,;\s]+/).filter(Boolean),values=parts.map(Number);
+ return parts.length>0&&parts.length<=30&&values.every(v=>Number.isInteger(v)&&v>=1&&v<=3600)?values:null;
+}
+$('entryForm').onsubmit=e=>{
+ e.preventDefault();let date=$('entryDate').value,title=$('entryTitle').value.trim();
+ if(!/^\d{4}-\d{2}-\d{2}$/.test(date)){showToast('Bitte ein Datum wählen');return;}
+ let data={id:editId||uid(),kind:mode,date,title,created:editId?(db.entries.find(e=>e.id===editId)?.created||Date.now()):Date.now()};
+ let additions=[];
+ if(mode==='strength'||mode==='functional'){
+  data.exercise=$('exercise').value;
+  if(mode==='functional'&&isTimedExercise(data.exercise)){
+   const times=parseHoldTimes($('entryHoldTimes').value);
+   if(!times){showToast('Bitte Haltezeiten in Sekunden eingeben, z. B. 20, 25, 30');return;}
+   additions=times.map((seconds,i)=>({...data,id:i===0?data.id:uid(),created:data.created+i,sets:1,reps:null,weight:'',rir:null,seconds}));
+  }else{
+   data.sets=Number($('entrySets').value);data.reps=Number($('entryReps').value);
+   data.weight=$('entryWeight').value===''?'':decimal($('entryWeight').value);
+   data.rir=mode==='strength'?Number($('entryRir').value):null;
+   data.seconds=mode==='functional'&&$('entrySeconds').value?Number($('entrySeconds').value):null;
+   if(data.seconds!=null&&(!Number.isInteger(data.seconds)||data.seconds<1||data.seconds>3600)){showToast('Bitte gültige Sekunden eintragen');return;}
+   if(!Number.isInteger(data.sets)||data.sets<1||data.sets>30||!Number.isInteger(data.reps)||data.reps<1||data.reps>300){showToast('Bitte gültige Sätze und Wiederholungen eintragen');return;}
+  }
+ }else if(mode!=='rest'){
+  data.distance=decimal($('entryDistance').value);data.duration=durationMinutes($('entryDuration').value);
+  data.pace=$('entryPace').value.trim();data.hr=$('entryHr').value?Number($('entryHr').value):null;
+  data.elevation=$('entryElevation').value?Number($('entryElevation').value):null;
+  data.origin=editId?(db.entries.find(e=>e.id===editId)?.origin||'manual'):(latestOCR?'strava':'manual');
+  if(![data.distance,data.duration].every(x=>Number.isFinite(x)&&x>=0)||data.distance>500||data.duration>5000){showToast('Bitte Kilometer und Dauer prüfen');return;}
+  if((data.hr!=null&&(data.hr<30||data.hr>240))||(data.elevation!=null&&(data.elevation<0||data.elevation>10000))){showToast('Puls/Höhenmeter bitte prüfen');return;}
+ }
+ if(editId){db.entries=db.entries.filter(e=>e.id!==editId);} // Ersetzt genau den bearbeiteten Eintrag.
+ db.entries.push(...(additions.length?additions:[data]));
+ if(pendingPlanId){db.plans=db.plans.filter(p=>p.id!==pendingPlanId);pendingPlanId=null;}
+ persist();choose(date);closeEntry();$('saveEntry').textContent='✓ Eintrag speichern';latestOCR=false;showToast(storageOK?'✓ Training gespeichert':'✓ Erfasst – bitte Backup exportieren!');
+};
+let latestOCR=false;
+function parseOCR(text){let s=text.replace(/\r/g,'\n').replace(/[|]/g,' ').replace(/\u00a0/g,' '),sflat=s.replace(/\s+/g,' ');let out={};let type=s.match(/fußball|fussball|football|soccer|match|spieltag/i)?'football':s.match(/laufen|run|joggen|lauf|running/i)?'run':null;if(type)out.kind=type;
+let dists=[...s.matchAll(/(\d{1,3}(?:[.,]\d{1,2})?)\s*(?:km|kilometer|kilometres?|kilometers?)\b(?!\s*\/)/gi)].map(m=>({val:decimal(m[1]),index:m.index})).filter(x=>x.val>.05&&x.val<150);
+if(dists.length)out.distance=dists[0].val;
+let heart=[...s.matchAll(/\b(\d{2,3})\s*(?:bpm|schl[aä]ge\s*\/\s*min|beats\s*\/\s*min)\b/gi)].map(m=>+m[1]).filter(x=>x>=45&&x<=220);
+if(heart.length)out.hr=heart[0];
+let pace=s.match(/\b(\d{1,2}):([0-5]\d)\s*(?:\/\s*km|min\s*\/\s*km|\/km)\b/i);if(pace)out.pace=pace[1]+':'+pace[2];
+let times=[...s.matchAll(/\b(\d{1,2}):([0-5]\d)(?::([0-5]\d))?\b/g)].map(m=>({time:m[0],index:m.index,mins:m[3]!=null?Number(m[1])*60+Number(m[2])+Number(m[3])/60:Number(m[1])+Number(m[2])/60,hasHours:m[3]!=null})).filter(t=>{let tail=s.slice(t.index+t.time.length,t.index+t.time.length+12);return !/^\s*\/\s*km/i.test(tail)&&t.mins>0&&t.mins<1000});
+if(times.length){let labels=/bewegungszeit|zeit\s*in\s*bewegung|moving\s*time|elapsed\s*time|dauer|aktivitätszeit|zeit|duration/gi;let marks=[...s.matchAll(labels)].map(m=>m.index);times.forEach(t=>{let d=marks.length?Math.min(...marks.map(pos=>Math.abs(t.index-pos))):999;let preceding=s.slice(Math.max(0,t.index-25),t.index).toLowerCase();t.score=(t.hasHours?10:0)+(d<75?15-d/5:0)+(preceding.match(/pace|tempo|schnitt|durchschn/)?-7:0)});times.sort((a,b)=>b.score-a.score);out.duration=times[0].mins;out.time=times[0].time}
+let elev=[...s.matchAll(/\b(\d{1,4})\s*(?:hm|m)\b(?!\s*\/)/gi)].filter(m=>{let near=s.slice(Math.max(0,m.index-80),Math.min(s.length,m.index+85));return /höhe|höhen|elevation|gain|ascent|anstieg/i.test(near)});if(elev.length)out.elevation=+elev[0][1];
+// Pace calculation is labeled as derived, never presented as a directly recognized metric.
+if(!out.pace&&out.duration&&out.distance){let mins=out.duration/out.distance,whole=Math.floor(mins),secs=Math.round((mins-whole)*60);out.pace=(whole+Math.floor(secs/60))+':'+String(secs%60).padStart(2,'0');out.paceDerived=true}
+return out}
+function displayRecognized(o){let found=[];if(o.distance!=null)found.push('Distanz '+km(o.distance)+' km');if(o.time)found.push('Zeit '+o.time);if(o.pace)found.push('Pace '+o.pace+(o.paceDerived?' (berechnet)':''));if(o.hr)found.push('Puls '+o.hr+' bpm');if(o.elevation!=null)found.push(o.elevation+' hm');$('ocrDetected').innerHTML=found.length?found.map(x=>`<span>✓ ${esc(x)}</span>`).join(''):'<span style="background:#413321;color:#f1d2a0">Keine verlässlichen Werte erkannt</span>'}
+let ocrBusy=false;
+function loadScript(src){return new Promise((resolve,reject)=>{let exist=document.querySelector('script[data-ocr]');if(window.Tesseract)return resolve();if(exist){exist.addEventListener('load',resolve,{once:true});exist.addEventListener('error',reject,{once:true});return}let x=document.createElement('script');x.src=src;x.async=true;x.dataset.ocr='1';x.onload=resolve;x.onerror=()=>reject(new Error('OCR-Bibliothek konnte nicht geladen werden. Internetverbindung prüfen.'));document.head.appendChild(x)})}
+$('ocrFile').onchange=async e=>{let file=e.target.files&&e.target.files[0];if(!file)return;if(ocrBusy){showToast('Vorherige Analyse läuft noch');return}if(!file.type.startsWith('image/')){showToast('Bitte ein Bild auswählen');return}if(previewUrl)URL.revokeObjectURL(previewUrl);previewUrl=URL.createObjectURL(file);$('ocrPreview').src=previewUrl;$('ocrPreview').classList.remove('hidden');$('ocrStatus').textContent='📷 Screenshot geladen. Starte Texterkennung …';$('ocrDetected').innerHTML='';$('ocrProgress').classList.remove('hidden');$('ocrBar').style.width='5%';ocrBusy=true;latestOCR=false;try{await loadScript('https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js');if(!window.Tesseract)throw new Error('Tesseract nicht verfügbar');$('ocrStatus').textContent='🔎 Werte auf dem Screenshot erkennen …';let result=await Tesseract.recognize(file,'eng',{logger:m=>{if(m.status==='recognizing text'){$('ocrBar').style.width=Math.round((m.progress||0)*100)+'%';$('ocrStatus').textContent='🔎 Text erkennen: '+Math.round((m.progress||0)*100)+' %'}}});let parsed=parseOCR(result.data.text||'');/* Auswahl von Laufen/Fußball bleibt bewusst beim Nutzer. */if(parsed.distance!=null)$('entryDistance').value=String(parsed.distance).replace('.',',');if(parsed.time)$('entryDuration').value=parsed.time;if(parsed.pace)$('entryPace').value=parsed.pace;if(parsed.hr)$('entryHr').value=parsed.hr;if(parsed.elevation!=null)$('entryElevation').value=parsed.elevation;latestOCR=true;displayRecognized(parsed);$('ocrStatus').textContent=Object.keys(parsed).length?'✓ Erkennung abgeschlossen. Bitte die Werte unten prüfen und speichern.':'Keine Zahlen erkannt. Du kannst die Werte unten selbst eingeben.'}catch(err){$('ocrStatus').textContent='⚠️ Texterkennung fehlgeschlagen: '+(err.message||'Unbekannter Fehler')+'. Trage die Werte unten manuell ein.'}finally{ocrBusy=false;$('ocrProgress').classList.add('hidden')}};
+function report(){let m=monday(selected),ents=weekEntries(selected),sum=summarize(ents),goals=Object.entries(db.goals).map(([k,g])=>`${metricCatalog()[k]?.label||k}: ${km(metricValue(k,sum,ents))}/${g}`).join('; '),detail=ents.sort((a,b)=>a.date.localeCompare(b.date)).map(e=>`${e.date} ${entryName(e)}: ${desc(e)}`).join('\n');return `TRAINING HQ · KW ${getWeek(m)} (${m} bis ${shift(m,6)})\nKraftvolumen: ${goals}\nLaufen: ${km(sum.run)} km (${sum.runCount} Einheiten)\nFußball: ${km(sum.football)} km (${sum.footballCount} Einheiten)\nAktive Tage: ${sum.days}\n\nEinträge:\n${detail||'Keine'}\n\nBitte analysiere den Trainingsreiz, die Regeneration und die Prioritäten (Oberkörper Muskelaufbau/Kraft; Beine Fußballleistung).`}
+$('copyWeek').onclick=async()=>{let s=report();try{await navigator.clipboard.writeText(s);showToast('Wochenbericht kopiert – in ChatGPT einfügen')}catch(e){let t=document.createElement('textarea');t.value=s;t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.select();try{document.execCommand('copy');showToast('Bericht kopiert')}catch(e){showToast('Kopieren fehlgeschlagen')}t.remove()}};
+function renderSettings(){
+ refreshExercises();
+ const catalog=metricCatalog();
+ const rows=Object.entries(db.goals).map(([k,v])=>{
+  const meta=catalog[k]||{label:k,unit:'Sätze'};
+  return `<div class="goal-row"><div class="goal-label"><strong>${esc(meta.label)}</strong><small>${meta.unit} pro Woche</small></div><input type="number" min="0" max="10000" step="0.5" value="${Number(v)||0}" data-target="${esc(k)}" aria-label="Wochenziel ${esc(meta.label)}"><button type="button" class="goal-remove" data-remove-goal="${esc(k)}" aria-label="Ziel ${esc(meta.label)} entfernen" title="Ziel entfernen">×</button></div>`;
+ }).join('');
+ $('targetInputs').innerHTML=rows||'<div class="empty">Keine Ziele aktiv. Unten kannst du neue hinzufügen.</div>';
+ const available=Object.entries(catalog).filter(([k])=>!Object.hasOwn(db.goals,k));
+ $('newGoalMetric').innerHTML=available.length?available.map(([k,meta])=>`<option value="${esc(k)}">${esc(meta.label)} (${meta.unit})</option>`).join(''):'<option value="">Alle verfügbaren Ziele hinzugefügt</option>';
+ $('newGoalMetric').disabled=!available.length;$('addGoal').disabled=!available.length;
+ $('targetInputs').querySelectorAll('[data-remove-goal]').forEach(btn=>btn.onclick=()=>{
+  // Werte anderer Felder vor dem Neu-Rendern übernehmen.
+  collectGoalEdits();delete db.goals[btn.dataset.removeGoal];persist();renderSettings();render();showToast('Ziel entfernt');
+ });
+}
+function collectGoalEdits(){
+ for(const input of $('targetInputs').querySelectorAll('[data-target]')){
+  const n=Number(input.value);if(Number.isFinite(n)&&n>=0&&n<=10000)db.goals[input.dataset.target]=Math.round(n*100)/100;
+ }
+}
+$('saveTargets').onclick=()=>{
+ for(const input of $('targetInputs').querySelectorAll('[data-target]')){
+  if(!Number.isFinite(Number(input.value))||Number(input.value)<0||Number(input.value)>10000||input.value.trim()===''){showToast('Bitte gültige Zielwerte eingeben');return;}
+ }
+ collectGoalEdits();persist();render();showToast('Wochenziele gespeichert');
+};
+$('addGoal').onclick=()=>{
+ const k=$('newGoalMetric').value,n=Number($('newGoalAmount').value);
+ if(!k||!Object.hasOwn(metricCatalog(),k)||Object.hasOwn(db.goals,k)){showToast('Bitte eine freie Kennzahl wählen');return;}
+ if(!$('newGoalAmount').value.trim()||!Number.isFinite(n)||n<0||n>10000){showToast('Bitte einen gültigen Zielwert eingeben');return;}
+ collectGoalEdits();db.goals[k]=Math.round(n*100)/100;persist();$('newGoalAmount').value='';renderSettings();render();showToast('✓ Ziel hinzugefügt');
+};
+function exportBackup(){let blob=new Blob([JSON.stringify({schema:6,...db},null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='training-hq-backup-'+nowISO()+'.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),3000);showToast('JSON-Backup erstellt')}
+$('backupExport').onclick=exportBackup;$('headerBackup').onclick=exportBackup;$('backupImport').onclick=()=>$('backupFile').click();
+$('backupFile').onchange=async e=>{let file=e.target.files?.[0];if(!file)return;try{let value=JSON.parse(await file.text());if(!Array.isArray(value.entries)||typeof value.goals!=='object'||!value.goals)throw new Error('Ungültiges Format');if(!value.entries.every(e=>e&&typeof e.date==='string'&&typeof e.id==='string'))throw new Error('Ungültige Einträge');if(!confirm(`Backup mit ${value.entries.length} Einträgen importieren? Deine aktuellen Daten werden ersetzt.`))return;db={entries:value.entries,plans:Array.isArray(value.plans)?value.plans.filter(p=>p&&typeof p.id==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(p.date)&&['strength','functional','run','football','stairs','rest'].includes(p.kind)):[],customExercises:Array.isArray(value.customExercises)?value.customExercises:[],goals:migrateGoals(value),goalSchema:4};for(const ex of db.customExercises){if(ex&&ex.name&&ex.muscle)mapMuscle[ex.name]=ex.muscle;}persist();renderSettings();render();showToast('Backup importiert')}catch(err){alert('Import fehlgeschlagen: '+err.message)}finally{e.target.value=''}};
+$('clearAll').onclick=()=>{if(!confirm('Wirklich alle Trainingsdaten und Ziele zurücksetzen? Vorher ein Backup speichern!'))return;if(!confirm('Letzte Bestätigung: ALLE Einträge löschen?'))return;db=structuredClone(defaults);persist();renderSettings();choose(nowISO());showToast('Alle Einträge gelöscht')};
+
+// Erweiterbare Uebungsbibliothek – erhaelt den bestehenden V2-Speicherschluessel.
+function allExercises(){
+ return [...new Set([...Object.keys(mapMuscle),...builtInFunctional,...builtInStrengthExtras,...db.customExercises.map(x=>x.name).filter(Boolean)])];
+}
+function refreshExercises(){
+ const sel=$('exercise'), chosen=sel.value, currentKind=mode==='functional'?'functional':'strength';
+ sel.innerHTML=allExercises().filter(name=>exerciseKind(name)===currentKind).map(name=>`<option value="${esc(name)}">${esc(name)}</option>`).join('');
+ if(Array.from(sel.options).some(o=>o.value===chosen))sel.value=chosen;
+ $('customExerciseList').textContent=db.customExercises.length?'Eigene Übungen: '+db.customExercises.map(x=>x.name+(x.kind==='functional'?' 🟡':' 🔴')).join(' · '):'Noch keine eigenen Übungen angelegt.';
+}
+function registerExercise(name,kind='strength',muscle='core'){
+ name=String(name||'').trim();
+ if(name.length<2||name.length>80||allExercises().some(x=>norm(x)===norm(name)))return false;
+ db.customExercises.push({name,muscle:kind==='functional'?null:muscle,kind});
+ if(kind==='strength')mapMuscle[name]=muscle;
+ persist();refreshExercises();return true;
+}
+$('addExercise').onclick=()=>{
+ const name=$('newExercise').value.trim(),muscle=$('newExerciseMuscle').value,kind=$('newExerciseKind').value;
+ if(!registerExercise(name,kind,muscle)){showToast('Übungsname ungültig oder bereits vorhanden');return;}
+ $('newExercise').value='';renderSettings();showToast('✓ Übung hinzugefügt');
+};
+// Offline-Eingabe: bewusst regelbasiert, KEINE ChatGPT-KI. Eintrag erfolgt erst nach Bestätigung.
+let smartDraft=[],smartRecognition=null;
+$('smartOpen').onclick=()=>{$('smartDialog').showModal();$('smartStatus').textContent='';};
+$('smartClose').onclick=()=>{$('smartDialog').close();};
+$('smartDiscard').onclick=()=>{smartDraft=[];$('smartPreview').innerHTML='';$('smartSave').classList.add('hidden');$('smartText').value='';$('smartStatus').textContent='Entwurf verworfen.';};
+const norm=s=>String(s||'').toLocaleLowerCase('de-DE').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/ß/g,'ss').replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim();
+const aliases={
+ 'klimmis':'Klimmzüge','pull ups':'Klimmzüge','pullups':'Klimmzüge','pull up':'Klimmzüge',
+ 'push ups':'Liegestütze','pushups':'Liegestütze','push up':'Liegestütze',
+ 'squat jumps':'Squatsprünge','sprungkniebeugen':'Squatsprünge','squatsprunge':'Squatsprünge',
+ 'liegestutze fusse hoher':'Liegestütze (Füße erhöht)','liegestutze mit erhohten fussen':'Liegestütze (Füße erhöht)','liegestutze fusse erhoht':'Liegestütze (Füße erhöht)',
+ 'facepulls':'Face Pulls','face pulls':'Face Pulls','bankdrucken':'Bankdrücken','bench press':'Bankdrücken','bizeps curls':'Bizepscurls','bizep curls':'Bizepscurls',
+ 'crunches':'Crunches (Maschine)','bauchmaschine':'Crunches (Maschine)','trizeps uber kopf':'Trizeps über Kopf',
+ 'kettlebell swing':'Kettlebell Swings','kb swings':'Kettlebell Swings','swings':'Kettlebell Swings',
+ 'ausfallschritte funktionell':'Ausfallschritte (funktionell)','lunges':'Ausfallschritte (funktionell)',
+ 'squats mit kettlebell':'Goblet Squats','goblet squat':'Goblet Squats','pallof press':'Pallof Press',
+ 'cable chop':'Cable Chops','kabel rotation':'Cable Chops','dead bugs':'Dead Bug','dead bug':'Dead Bug',
+ 'side plank':'Side Plank','seitstutz':'Side Plank','einbeinstand':'Einbeinstand',
+ 'copenhagen plank':'Copenhagen Plank','einbeiniges rdl':'Einbeiniges RDL','single leg rdl':'Einbeiniges RDL',
+ 'skater jumps':'Skater Jumps','farmers carry':'Farmer’s Carry','farmer carry':'Farmer’s Carry',
+ 'hufbeuger':'Hüftbeuger-Mobilisation','hueftbeuger':'Hüftbeuger-Mobilisation','sprunggelenk mobilisation':'Sprunggelenksmobilität'
+};
+function exerciseAliases(){return [...Object.entries(aliases),...allExercises().map(name=>[norm(name),name])].filter(([key])=>key).sort((a,b)=>b[0].length-a[0].length);}
+function findExercise(t){const n=' '+norm(t)+' ';return exerciseAliases().find(([alias])=>n.includes(' '+alias+' '))?.[1]||null;}
+function splitExerciseChunks(text){
+ // Split into logical lines and separate named exercises within the same sentence.
+ const sections=String(text).replace(/\b(danach|anschließend|anschliessend|außerdem|und dann)\b/gi,';').split(/[;\n]+|(?<=[.!?])\s+(?=[A-Za-zÄÖÜäöü])/).map(s=>s.trim()).filter(Boolean);
+ const result=[];
+ for(const section of sections){
+   const normalized=' '+norm(section)+' ';
+   const matches=[];
+   for(const [alias,name] of exerciseAliases()){
+    let idx=0;while((idx=normalized.indexOf(' '+alias+' ',idx))>=0){
+     const start=idx; if(!matches.some(m=>start>=m.start&&start<m.end))matches.push({start,end:start+alias.length+2,name});
+     idx+=alias.length+2;
+    }
+   }
+   matches.sort((a,b)=>a.start-b.start||b.end-a.end);
+   const found=[];for(const m of matches)if(!found.some(f=>m.start<f.end&&m.end>f.start))found.push(m);
+   // Original character offsets may differ for accents. Fall back to single chunk when uncertain.
+   if(found.length<=1){result.push(section);continue;}
+   // Instead split at exercise names in the original using Unicode-insensitive token search;
+   // create trailing parts and keep optional introductory set count before the first exercise.
+   const matchesOrig=[];
+   const srcNorm=norm(section); const tokens=srcNorm.split(' ');
+   const tokenStarts=[]; let offset=0;
+   for(const t of tokens){tokenStarts.push(offset);offset+=t.length+1;}
+   for(const match of found){const prefix=normalized.slice(0,match.start).trim().split(' ').filter(Boolean).length;
+    if(prefix<tokens.length)matchesOrig.push(prefix);
+   }
+   // Exact offset map from NFD-normalized original text to original code units.
+   const mapped=[];let flat='', map=[];
+   for(let i=0;i<section.length;i++){
+    const expanded=section[i].toLocaleLowerCase('de-DE').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/ß/g,'ss').replace(/[^a-z0-9 ]/g,' ');
+    for(const ch of expanded){flat+=ch;map.push(i);}
+   }
+   for(const m of found){let alias=exerciseAliases().find(([k,n])=>n===m.name&&(' '+k+' ').length===m.end-m.start)?.[0]||norm(m.name);
+    const idx=flat.indexOf(alias);if(idx>=0)m.real=map[idx];
+   }
+   const boundaries=[...new Set(found.map(m=>m.real).filter(x=>Number.isInteger(x)))].sort((a,b)=>a-b);
+   if(boundaries.length<2){result.push(section);continue;}
+   if(boundaries[0]>0){const leading=section.slice(0,boundaries[0]);result.push(leading+section.slice(boundaries[0],boundaries[1]).trim());}
+   else result.push(section.slice(0,boundaries[1]).trim());
+   for(let i=1;i<boundaries.length;i++)result.push(section.slice(boundaries[i],boundaries[i+1]??section.length).trim());
+ }
+ return result.filter(Boolean);
+}
+function parseSmart(text){
+ const result=[],unparsed=[];
+ for(const part of splitExerciseChunks(text)){
+  const ex=findExercise(part);if(!ex){unparsed.push(part+' (Übung nicht erkannt)');continue;}
+  const date=/\bvorgestern\b/i.test(part)?shift(nowISO(),-2):/\bgestern\b/i.test(part)?shift(nowISO(),-1):nowISO();
+  const kind=exerciseKind(ex);
+  const rirMatch=part.match(/\brir\s*([0-5])\b/i),rir=rirMatch?Number(rirMatch[1]):2;
+  const setMatch=part.match(/(\d{1,2})\s*(?:sätze|satze|satz|sets?)\b/i),explicitSets=setMatch?Number(setMatch[1]):null;
+  const weights=[...part.matchAll(/(\d+(?:[.,]\d+)?)\s*(?:kg|kilo)\b/gi)];
+  let currentWeight=weights.length?decimal(weights[0][1]):'';
+  const eRows=[];
+  if(isTimedExercise(ex)){
+   // Jede ausdrücklich genannte Zeit ergibt eine eigene Durchführung.
+   // Beispiel: Handstand 20, 25, 30 sek ODER Handstand 3x20 sek.
+   const repeated=part.match(/(\d{1,2})\s*[x×]\s*(\d{1,4})\s*(?:sek(?:unden)?|sec|s\b)/i);
+   if(repeated){const n=Number(repeated[1]),sec=Number(repeated[2]);if(n>0&&n<=30&&sec>0&&sec<=3600)for(let i=0;i<n;i++)eRows.push({reps:null,seconds:sec,weight:''});}
+   else{
+    const list=part.match(/((?:\d{1,4}\s*[,;/]\s*)+\d{1,4})\s*(?:sek(?:unden)?|sec|s\b)/i);
+    const values=list?list[1].split(/\s*[,;/]\s*/).map(Number):[...part.matchAll(/(\d{1,4})\s*(?:sek(?:unden)?|sec|s\b)/gi)].map(m=>Number(m[1]));
+    if(values.length<=30&&values.every(n=>n>=1&&n<=3600))for(const sec of values)eRows.push({reps:null,seconds:sec,weight:''});
+    if(explicitSets&&eRows.length===1&&explicitSets<=30)eRows.push(...Array.from({length:explicitSets-1},()=>({...eRows[0]})));
+   }
+   if(!eRows.length||eRows.length>30||(explicitSets!=null&&eRows.length!==explicitSets)){unparsed.push(part+' (Haltezeiten fehlen oder Satzanzahl unklar)');continue;}
+   eRows.forEach(v=>result.push({id:uid(),kind,date,exercise:ex,sets:1,reps:null,seconds:v.seconds,weight:'',rir:null,origin:'smart-text',created:Date.now()}));
+   continue;
+  }
+  // '3x20 sek' and '3 Sätze je 20 Sekunden' are timed holds.
+  const timePattern=/(\d{1,2})\s*[x×]\s*(\d{1,4})\s*(?:sek(?:unden)?|sec|s\b)/gi;
+  for(const m of part.matchAll(timePattern)){
+   const n=Number(m[1]),sec=Number(m[2]);if(n>=1&&n<=30&&sec>=1&&sec<=3600)for(let i=0;i<n;i++)eRows.push({reps:1,seconds:sec,weight:currentWeight});
+  }
+  if(!eRows.length){
+   // Weighted notation: '63kg x 11 und x 9', preserving inherited weight.
+   const weightAndX=/(?:([0-9]+(?:[.,][0-9]+)?)\s*(?:kg|kilo)\s*)?[x×]\s*(\d{1,3})(?!\s*(?:sek|sec))/gi;
+   for(const m of part.matchAll(weightAndX)){
+    if(m[1]!=null)currentWeight=decimal(m[1]);
+    const reps=Number(m[2]);if(reps>0&&reps<=300)eRows.push({reps,seconds:null,weight:currentWeight});
+   }
+   // '3x10' is sets x reps only if no weight precedes the x.
+   if(eRows.length===1){const m=part.match(/\b(\d{1,2})\s*[x×]\s*(\d{1,3})\b(?!\s*(?:sek|sec))/i);
+    if(m&&!/\b(?:kg|kilo)\s*$/i.test(part.slice(0,m.index))&&(!weights.length||m.index<weights[0].index)){
+      const count=Number(m[1]);if(count>=1&&count<=30)eRows.splice(0,1,...Array.from({length:count},()=>({reps:Number(m[2]),seconds:null,weight:currentWeight})));
+    }
+   }
+  }
+  if(!eRows.length){
+   // Remove weight, RIR, dates, set counts, durations and words, then inspect repetition numbers.
+   let tail=part.replace(/\d+(?:[.,]\d+)?\s*(?:kg|kilo)\b/gi,' ')
+     .replace(/\brir\s*\d\b/gi,' ')
+     .replace(/\b\d{1,2}\s*(?:sätze|satze|satz|sets?)\b/gi,' ')
+     .replace(/\b(gestern|vorgestern|heute)\b/gi,' ')
+     .replace(/\b1\s*rm\b/gi,' 1 ');
+   const match=tail.match(/(\d+)\s*(?:sek(?:unden)?|sec)\b/i);
+   if(match){const sec=Number(match[1]);if(sec>=1&&sec<=3600){const count=explicitSets||1;for(let i=0;i<count;i++)eRows.push({reps:1,seconds:sec,weight:currentWeight});}}
+   else{
+    // Read numbers only after exercise name, preventing exercise titles like '360' from being interpreted as reps.
+    const exerciseMatch=exerciseAliases().find(([k,n])=>n===ex&&(' '+norm(part)+' ').includes(' '+k+' '));
+    const cleaned=norm(tail),alias=exerciseMatch?.[0]||norm(ex),at=cleaned.indexOf(alias);
+    const after=at>=0?cleaned.slice(at+alias.length):cleaned;
+    const numbers=[...after.matchAll(/\b(\d{1,3})\b/g)].map(m=>Number(m[1])).filter(v=>v>=1&&v<=300);
+    if(numbers.length){let reps=numbers;if(explicitSets&&reps.length===1)reps=Array(Math.min(explicitSets,30)).fill(reps[0]);
+      for(const n of reps)eRows.push({reps:n,seconds:null,weight:currentWeight});}
+   }
+  }
+  if(!eRows.length){unparsed.push(part+' (Wiederholungen oder Sekunden fehlen)');continue;}
+  if(explicitSets&&eRows.length===1&&eRows[0].seconds==null)eRows.push(...Array.from({length:explicitSets-1},()=>({...eRows[0]})));
+  if(eRows.length>30||(explicitSets!=null&&eRows.length!==explicitSets)){
+   unparsed.push(part+' (Satzanzahl unklar – bitte getrennt eingeben)');continue;
+  }
+  eRows.forEach(v=>result.push({id:uid(),kind,date,exercise:ex,sets:1,reps:v.reps,seconds:v.seconds,weight:v.weight,rir:kind==='strength'?rir:null,origin:'smart-text',created:Date.now()}));
+ }
+ return {result,unparsed};
+}
+function showSmartPreview(){
+ const root=$('smartPreview');root.innerHTML='';
+ smartDraft.forEach((e,i)=>{
+  const r=document.createElement('div');r.className='smart-row '+e.kind;
+  const exWrap=document.createElement('label');exWrap.className='smart-ex';
+  const label=document.createElement('small');label.textContent=(e.kind==='functional'?'🟡 Funktionell':'🔴 Kraft')+' · Übung';
+  const sel=document.createElement('select');sel.setAttribute('aria-label','Übung');
+  sel.innerHTML=allExercises().map(x=>`<option value="${esc(x)}">${esc(x)}</option>`).join('');sel.value=e.exercise;
+  sel.onchange=()=>{e.exercise=sel.value;e.kind=exerciseKind(sel.value);if(e.kind==='strength'){e.seconds=null;e.rir=e.rir??2;e.reps=e.reps??10;}else if(isTimedExercise(e.exercise)){e.seconds=e.seconds??20;e.reps=null;e.weight='';e.rir=null;}else{e.rir=null;e.reps=e.reps??10;}showSmartPreview()};
+  exWrap.append(label,sel);
+  function numField(title,initial,placeholder,cb,step='1'){
+   const w=document.createElement('label');w.className='smart-mini';const t=document.createElement('small');t.textContent=title;
+   const x=document.createElement('input');x.type='number';x.min='0';x.step=step;x.placeholder=placeholder;x.value=initial??'';x.setAttribute('aria-label',title);
+   x.oninput=()=>cb(x.value);w.append(t,x);return w;
+  }
+  const reps=numField('Wdh.',e.reps,'Wdh.',v=>{e.reps=v===''?null:Number(v)});
+  const kg=numField('kg',e.weight,'–',v=>{e.weight=v===''?'':Number(v)},'0.5');
+  const seconds=numField('Sek.',e.seconds,'–',v=>{e.seconds=v===''?null:Number(v)});
+  const rir=numField('RIR',e.rir,e.kind==='functional'?'–':'2',v=>{e.rir=v===''?null:Number(v)});
+  // Halteübungen haben ausschließlich ein Zeitfeld – keine Wdh. und kein Gewicht.
+  if(e.kind==='strength')seconds.style.display='none';else rir.style.display='none';
+  if(isTimedExercise(e.exercise)){reps.style.display='none';kg.style.display='none';}
+  const rm=document.createElement('button');rm.className='btn small smart-delete';rm.textContent='×';rm.title='Satz entfernen';rm.setAttribute('aria-label','Satz entfernen');rm.onclick=()=>{smartDraft.splice(i,1);showSmartPreview()};
+  r.append(exWrap,reps,kg,e.kind==='functional'?seconds:rir,rm);root.appendChild(r);
+ });
+ $('smartSave').classList.toggle('hidden',!smartDraft.length);
+}
+function newSmartRow(ex='Klimmzüge'){
+ const kind=exerciseKind(ex);
+ return {id:uid(),kind,date:nowISO(),exercise:ex,sets:1,reps:isTimedExercise(ex)?null:10,seconds:isTimedExercise(ex)?20:null,weight:'',rir:kind==='strength'?2:null,origin:'smart-text',created:Date.now()};
+}
+$('smartAddSet').onclick=()=>{const e=smartDraft.at(-1);smartDraft.push(e?{...e,id:uid()}:newSmartRow());showSmartPreview();};
+$('smartAddExercise').onclick=()=>{smartDraft.push(newSmartRow());showSmartPreview();};
+$('smartToggleNew').onclick=()=>{$('smartNewExerciseWrap').classList.toggle('hidden');$('smartNewMuscleWrap').classList.toggle('hidden',$('smartNewKind').value!=='strength')};
+$('smartNewKind').onchange=()=>$('smartNewMuscleWrap').classList.toggle('hidden',$('smartNewKind').value!=='strength');
+$('smartCreateExercise').onclick=()=>{
+ const name=$('smartNewName').value.trim(),kind=$('smartNewKind').value;
+ if(!registerExercise(name,kind,$('smartNewMuscle').value)){showToast('Übungsname ungültig oder bereits vorhanden');return;}
+ smartDraft.push(newSmartRow(name));renderSettings();$('smartNewName').value='';$('smartNewExerciseWrap').classList.add('hidden');showSmartPreview();showToast('Neue Übung ergänzt – Satz vor Speichern prüfen');
+};
+$('smartParse').onclick=()=>{
+ const input=$('smartText').value.trim();if(!input){showToast('Bitte erst einen Text eingeben');return;}
+ const parsed=parseSmart(input);smartDraft=parsed.result;showSmartPreview();
+ $('smartStatus').textContent=smartDraft.length+' Sätze erkannt.'+(parsed.unparsed.length?' Nicht sicher erkannt: '+parsed.unparsed.join(' | '):' Alle Werte vor dem Speichern prüfen. RIR bei Kraft standardmäßig 2, falls nicht genannt.');
+};
+$('smartSave').onclick=()=>{
+ if(!smartDraft.length)return;
+ if(smartDraft.some(e=>!allExercises().includes(e.exercise)||!['strength','functional'].includes(e.kind)||(isTimedExercise(e.exercise)?!Number.isInteger(e.seconds)||e.seconds<1||e.seconds>3600:!Number.isInteger(e.reps)||e.reps<1||e.reps>300)||e.seconds!=null&&(!Number.isInteger(e.seconds)||e.seconds<1||e.seconds>3600)||e.weight!==''&&(!Number.isFinite(e.weight)||e.weight<0||e.weight>1000)||e.kind==='strength'&&(!Number.isInteger(e.rir)||e.rir<0||e.rir>5))){showToast('Bitte Übung, Wdh., Sekunden, RIR und Gewicht prüfen');return;}
+ const dates=smartDraft.map(x=>x.date);db.entries.push(...smartDraft.map(e=>({...e,id:uid(),created:Date.now()})));
+ smartDraft=[];persist();choose(dates[0]||nowISO());$('smartDialog').close();$('smartText').value='';$('smartPreview').innerHTML='';$('smartSave').classList.add('hidden');showToast(storageOK?'✓ Training gespeichert':'Speicherung fehlgeschlagen – Backup erstellen');
+};
+$('smartMic').onclick=()=>{
+ const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+ if(!SR){$('smartStatus').textContent='Sprachdiktat wird von diesem Browser nicht unterstützt. Nutze die Diktierfunktion deiner iPhone-Tastatur im Textfeld.';return;}
+ if(smartRecognition){try{smartRecognition.stop()}catch(e){}return;}
+ const r=new SR();smartRecognition=r;r.lang='de-DE';r.interimResults=false;r.continuous=false;
+ $('smartStatus').textContent='🎙️ Zuhören …';$('smartMic').textContent='■ Aufnahme beenden';
+ r.onresult=e=>{$('smartText').value=($('smartText').value+' '+Array.from(e.results).map(x=>x[0].transcript).join(' ')).trim();$('smartStatus').textContent='Diktat übernommen. Jetzt Einträge erkennen.';};
+ r.onerror=e=>{$('smartStatus').textContent='Spracherkennung fehlgeschlagen: '+e.error+'. Nutze alternativ das Tastaturdiktat.';};
+ r.onend=()=>{smartRecognition=null;$('smartMic').textContent='🎙️ Diktieren';};try{r.start()}catch(e){r.onend();$('smartStatus').textContent='Mikrofon konnte nicht gestartet werden.';}
+};
+
+// ===================== Training HQ V6: Plan, Score & Fortschritt =====================
+// Alles bleibt lokal unter demselben localStorage-Schlüssel wie V2–V4.
+let editingPlanId=null;
+function planningFields(){
+ const type=$('planKind').value, strength=type==='strength'||type==='functional', endurance=type==='run'||type==='football'||type==='stairs';
+ ['planExerciseWrap','planSetsWrap','planRepsWrap'].forEach(id=>$(id).classList.toggle('hidden',!strength));
+ ['planDistanceWrap','planDurationWrap'].forEach(id=>$(id).classList.toggle('hidden',!endurance));
+ const timed=strength&&isTimedExercise($('planExercise').value);$('planRepsWrap').classList.toggle('hidden',!strength||timed);$('planSecondsWrap').classList.toggle('hidden',!timed);$('planSets').required=strength;$('planReps').required=strength&&!timed;$('planSeconds').required=timed;
+}
+function refreshPlanExercises(){
+ const select=$('planExercise'), current=select.value || 'Klimmzüge';
+ select.innerHTML=allExercises().filter(x=>exerciseKind(x)===$('planKind').value).map(name=>`<option value="${esc(name)}">${esc(name)}</option>`).join('');
+ if(Array.from(select.options).some(o=>o.value===current))select.value=current;
+}
+function openPlan(plan=null){
+ editingPlanId=plan?.id||null;
+ $('planForm').reset();refreshPlanExercises();
+ $('planDate').value=plan?.date||selected;
+ $('planKind').value=plan?.kind||'strength';refreshPlanExercises();
+ $('planTitle').value=plan?.title||'';
+ $('planExercise').value=plan?.exercise||'Klimmzüge';
+ $('planSets').value=plan?.sets??3;$('planReps').value=plan?.reps??10;$('planSeconds').value=plan?.seconds??20;
+ $('planDistance').value=plan?.distance??'';$('planDuration').value=plan?.duration??'';
+ $('planIntensity').value=plan?.intensity||'moderate';$('planNote').value=plan?.note||'';
+ $('planModalTitle').textContent=plan?'Geplantes Training bearbeiten':'Training vorplanen';
+ $('planSave').textContent=plan?'✓ Änderungen speichern':'✓ Plan speichern';
+ planningFields();$('planDialog').showModal();
+}
+$('planOpenOverview').onclick=()=>openPlan();
+$('dayPlan').onclick=()=>openPlan();
+$('calDayPlan').onclick=()=>openPlan();
+$('planClose').onclick=()=>$('planDialog').close();
+$('planCancel').onclick=()=>$('planDialog').close();
+$('planDialog').addEventListener('click',e=>{if(e.target===$('planDialog'))$('planDialog').close()});
+$('planKind').onchange=()=>{refreshPlanExercises();planningFields()};$('planExercise').onchange=planningFields;
+$('planForm').onsubmit=e=>{
+ e.preventDefault();
+ const date=$('planDate').value,kind=$('planKind').value,sets=Number($('planSets').value),timed=kind==='functional'&&isTimedExercise($('planExercise').value),reps=timed?null:Number($('planReps').value),seconds=timed?Number($('planSeconds').value):null,distance=$('planDistance').value===''?null:Number($('planDistance').value),duration=$('planDuration').value===''?null:Number($('planDuration').value);
+ if(!/^\d{4}-\d{2}-\d{2}$/.test(date)||Number.isNaN(dateObj(date).valueOf())){showToast('Bitte ein gültiges Datum wählen');return;}
+ if(['strength','functional'].includes(kind)&&(!Number.isInteger(sets)||sets<1||sets>30||(timed?(!Number.isInteger(seconds)||seconds<1||seconds>3600):(!Number.isInteger(reps)||reps<1||reps>300)))){showToast('Sätze, Wiederholungen oder Sekunden prüfen');return;}
+ if((distance!=null&&(!Number.isFinite(distance)||distance<0||distance>500))||(duration!=null&&(!Number.isFinite(duration)||duration<0||duration>5000))){showToast('Distanz und Dauer prüfen');return;}
+ const before=db.plans.find(p=>p.id===editingPlanId);
+ const item={id:editingPlanId||uid(),date,kind,title:$('planTitle').value.trim(),exercise:['strength','functional'].includes(kind)?$('planExercise').value:'',sets:['strength','functional'].includes(kind)?sets:null,reps:['strength','functional'].includes(kind)?reps:null,seconds:timed?seconds:null,distance:['strength','functional','rest'].includes(kind)?null:distance,duration:['strength','functional','rest'].includes(kind)?null:duration,intensity:$('planIntensity').value,note:$('planNote').value.trim(),created:before?.created||Date.now()};
+ if(editingPlanId)db.plans=db.plans.map(p=>p.id===editingPlanId?item:p);
+ else db.plans.push(item);
+ persist();$('planDialog').close();choose(date);showToast(storageOK?'✓ Training geplant':'Plan erfasst – lokaler Speicher nicht verfügbar');
+};
+function planDescription(p){
+ const chunks=[];
+ if(['strength','functional'].includes(p.kind))chunks.push(isTimedExercise(p.exercise)?`${p.sets||1} Versuche · ${p.seconds||'–'} Sek. je Versuch`:`${p.sets||1} × ${p.reps||10} Wdh.`);
+ if(p.distance!=null&&p.distance>0)chunks.push(`${km(p.distance)} km`);
+ if(p.duration!=null&&p.duration>0)chunks.push(`${km(p.duration)} min`);
+ chunks.push(({low:'locker',moderate:'moderat',high:'intensiv'})[p.intensity]||'moderat');
+ return chunks.join(' · ');
+}
+function renderPlan(p){
+ const name=p.title||(['strength','functional'].includes(p.kind)?p.exercise:({run:'Laufen',football:'Fußball',stairs:'Treppen',rest:'Ruhetag'})[p.kind]||'Training');
+ const note=p.note?` · ${esc(p.note)}`:'';
+ return `<div class="plan-item ${esc(p.kind)}"><div class="log-icon">${iconForEntry(p)}</div><div class="plan-body"><span class="plan-label">◌ Geplant · ${esc(fmtDay(p.date))}</span><strong>${esc(name)}</strong><small>${esc(planDescription(p))}${note}</small></div><div class="plan-actions"><button class="btn small" type="button" data-plan-complete="${esc(p.id)}" aria-label="Geplantes Training erfassen">✓ Erfassen</button><button class="btn small" type="button" data-plan-edit="${esc(p.id)}" aria-label="Plan bearbeiten">✎</button><button class="btn small danger" type="button" data-plan-delete="${esc(p.id)}" aria-label="Plan löschen">×</button></div></div>`;
+}
+function bindPlanActions(root){
+ root.querySelectorAll('[data-plan-edit]').forEach(b=>b.onclick=()=>{const p=db.plans.find(x=>x.id===b.dataset.planEdit);if(p)openPlan(p)});
+ root.querySelectorAll('[data-plan-delete]').forEach(b=>b.onclick=()=>{const p=db.plans.find(x=>x.id===b.dataset.planDelete);if(!p||!confirm(`Geplantes Training „${p.title||p.exercise||p.kind}“ entfernen?`))return;db.plans=db.plans.filter(x=>x.id!==p.id);persist();render();showToast('Plan gelöscht')});
+ root.querySelectorAll('[data-plan-complete]').forEach(b=>b.onclick=()=>completePlan(b.dataset.planComplete));
+}
+function completePlan(id){
+ const p=db.plans.find(x=>x.id===id);if(!p)return;
+ openEntry(p.kind,['strength','functional'].includes(p.kind)?p.exercise:'');
+ pendingPlanId=id;
+ $('entryDate').value=p.date;
+ if(p.title)$('entryTitle').value=p.title;
+ if(['strength','functional'].includes(p.kind)){if(isTimedExercise(p.exercise)){$('entryHoldTimes').value=Array(Math.max(1,Math.min(Number(p.sets)||1,30))).fill(p.seconds??20).join(', ');}else{$('entrySets').value=p.sets||1;$('entryReps').value=p.reps||10;}}
+ else if(p.kind!=='rest'){
+  $('entryDistance').value=p.distance??'';$('entryDuration').value=p.duration??'';
+ }
+ showToast('Werte prüfen und als tatsächlich absolviert speichern');
+}
+function renderPlanning(){
+ const from=nowISO(),until=shift(from,21);
+ const plans=db.plans.filter(p=>p.date>=from&&p.date<=until).sort((a,b)=>a.date.localeCompare(b.date)||(a.created||0)-(b.created||0));
+ $('upcomingPlans').innerHTML=plans.length?plans.slice(0,6).map(renderPlan).join('')+'<p class="plan-empty">Geplante Einheiten zählen noch nicht zum Wochenvolumen.</p>':'<p class="plan-empty">Noch keine zukünftigen Einheiten geplant. Lege z. B. dein nächstes Fußballtraining, einen Zone-2-Lauf oder einen Beintag fest.</p>';
+ bindPlanActions($('upcomingPlans'));
+}
+// Regenerationshinweise: transparent regelbasiert, ohne API und ohne medizinische Diagnose.
+function isLegStrength(e){return entryKind(e)==='strength'&&['quads','hamstrings','calves'].includes(mapMuscle[e.exercise]);}
+function exertion(p){return p.kind==='rest'?0:(p.intensity==='high'||p.kind==='football'?2:p.intensity==='low'?0:1);}
+function renderRecovery(){
+ const today=nowISO(),last7=db.entries.filter(e=>e.date>=shift(today,-6)&&e.date<=today),next=db.plans.filter(p=>p.date>=today&&p.date<=shift(today,7)).sort((a,b)=>a.date.localeCompare(b.date));
+ const recentFootball=last7.filter(e=>entryKind(e)==='football'),recentLegs=last7.filter(isLegStrength),recentDays=[...new Set(last7.filter(e=>entryKind(e)!=='rest').map(e=>e.date))];
+ let advice=[];
+ function add(title,detail,klass=''){advice.push(`<div class="advice ${klass}"><strong>${esc(title)}</strong>${esc(detail)}</div>`)}
+ const hardNear=next.filter(p=>exertion(p)===2),plannedLegs=next.filter(p=>p.kind==='strength'&&['quads','hamstrings','calves'].includes(mapMuscle[p.exercise]));
+ if(hardNear.length){
+  const first=hardNear[0];add('📅 Intensive Einheit voraus',`${fmtDay(first.date)}: ${first.title||first.exercise||({football:'Fußball',run:'Laufen',stairs:'Treppen'})[first.kind]||'Training'}. Vorher auf Schlaf und ausreichend Erholung achten.`);
+ }
+ if(recentFootball.some(e=>e.date>=shift(today,-2))&&plannedLegs.some(p=>p.date<=shift(today,2)))add('⚠️ Beine nicht überladen','Nach Fußball in den vergangenen 48 Stunden ist bereits ein Beinkrafttraining eingeplant. Passe Intensität und Umfang an, wenn deine Beine noch müde sind.','warning');
+ if(recentLegs.some(e=>e.date>=shift(today,-2))&&next.some(p=>p.kind==='football'&&p.date<=shift(today,2)))add('⚠️ Fußball nach Beintraining','Du hast kürzlich Beine trainiert und bald Fußball geplant. Bei Muskelkater oder schweren Beinen lieber keinen weiteren harten Beinreiz setzen.','warning');
+ for(let i=0;i<next.length;i++)for(let j=i+1;j<next.length;j++){
+  if(exertion(next[i])===2&&exertion(next[j])===2&&Math.abs((dateObj(next[j].date)-dateObj(next[i].date))/86400000)<=1){
+   add('⚠️ Zwei intensive Tage hintereinander',`${fmtDay(next[i].date)} und ${fmtDay(next[j].date)} sind beide als intensiv geplant. Eventuell eine Einheit lockerer gestalten oder mehr Pause einbauen.`,'warning');i=next.length;break;
+  }
+ }
+ if(recentDays.length>=5)add('🌙 Umfangreiches Trainingsprogramm',`${recentDays.length} aktive Trainingstage innerhalb der letzten sieben Tage. Ein lockerer oder freier Tag kann sinnvoll sein – je nach Schlaf und Müdigkeit.`);
+ const upcomingEasy=next.filter(p=>p.intensity==='low'||p.kind==='rest');
+ if(upcomingEasy.length)add('✅ Erholung eingeplant',`${upcomingEasy.length} lockere Einheiten oder Ruhetage stehen im Plan. Gute Grundlage, um intensive Tage zu entzerren.`,'success');
+ if(!next.length)add('🗓️ Nächste Woche planen','Trage bevorstehende Spiele, intensive Krafttage oder längere Läufe ein. Dann kann die App Hinweise zu ungünstigen Kombinationen geben.');
+ if(!last7.length)add('💡 Noch wenig Belastungsdaten','Für individuellere Hinweise mindestens ein paar absolvierte Einheiten protokollieren. Ein Plan allein zeigt nicht, wie erholt du bist.');
+ if(!advice.length)add('✅ Plan ohne auffällige Konflikte','Aus den aktuell eingetragenen Trainingstagen sind keine direkten Belastungskonflikte erkennbar. Entscheide die Intensität nach Tagesform und Schlaf.','success');
+ $('recoveryAdvice').innerHTML=advice.slice(0,4).join('');
+}
+// Wochenscore 0–100: Ziele bis 70 Pkt, 3 aktive Tage bis 20 Pkt, Leistungstrend bis 10 Pkt.
+function currentPerformance(e){
+ if(entryKind(e)==='strength')return {type:'strength',key:e.exercise,weight:e.weight===''||e.weight==null?0:Number(e.weight),reps:Number(e.reps)||0};
+ if(entryKind(e)==='run'&&+e.distance>0&&+e.duration>0)return {type:'run',distance:+e.distance,pace:+e.duration/(+e.distance)};
+ return null;
+}
+function performanceBonus(weekStart,entries){
+ if(!entries.length)return {points:0,message:'Noch keine absolvierten Einheiten.'};
+ const previous=db.entries.filter(e=>e.date>=shift(weekStart,-28)&&e.date<weekStart);
+ if(!previous.length)return {points:5,message:'Noch keine Vergleichsdaten aus den letzten vier Wochen; neutraler Trendbonus.'};
+ for(const e of entries){
+  const a=currentPerformance(e);if(!a)continue;
+  if(a.type==='strength'&&a.reps>0){
+   const comparable=previous.map(currentPerformance).filter(x=>x&&x.type==='strength'&&x.key===a.key&&Math.abs(x.weight-a.weight)<.01&&x.reps>0);
+   if(comparable.length&&a.reps>Math.max(...comparable.map(x=>x.reps)))return {points:10,message:`Bestleistung: ${e.exercise}, mehr Wiederholungen bei gleichem Gewicht als in den vier Vorwochen.`};
+  }
+  if(a.type==='run'&&a.pace>0){
+   const comparable=previous.map(currentPerformance).filter(x=>x&&x.type==='run'&&x.distance>0&&Math.abs(x.distance-a.distance)/a.distance<=.15);
+   if(comparable.length&&a.pace<Math.min(...comparable.map(x=>x.pace))*.98)return {points:10,message:'Schnellere Pace als bei vergleichbar langen Läufen in den vier Vorwochen.'};
+  }
+ }
+ return {points:5,message:'Kein eindeutiger neuer Bestwert bei vergleichbaren Einträgen; neutraler Trendbonus.'};
+}
+function scoreWeek(weekStart){
+ if(weekStart>monday(nowISO()))return null;
+ const entries=weekEntries(weekStart),sum=summarize(entries),catalog=metricCatalog();
+ const goals=Object.entries(db.goals).filter(([k,g])=>Object.hasOwn(catalog,k)&&Number(g)>0);
+ if(!goals.length)return null;
+ const ratio=goals.reduce((n,[k,g])=>n+Math.min(1,Math.max(0,metricValue(k,sum,entries)/Number(g))),0)/goals.length;
+ const goalPoints=Math.round(ratio*70),regularity=Math.round(Math.min(1,sum.days/3)*20),trend=performanceBonus(weekStart,entries);
+ return {total:Math.min(100,goalPoints+regularity+trend.points),goalPoints,regularity,trendPoints:trend.points,trendInfo:trend.message,goalCount:goals.length,days:sum.days,weekStart,provisional:weekStart===monday(nowISO())};
+}
+function scoreMarkup(week,compact=false){
+ const score=scoreWeek(week);
+ if(!score)return `<p class="plan-empty">Aktiviere unter „Ziele & Daten“ mindestens ein Wochenziel größer als 0, um deinen Wochenscore zu berechnen.</p>`;
+ const label=score.total>=85?'Ziele sehr gut erreicht':score.total>=60?'Solide Trainingswoche':score.total>=35?'Noch Luft bei deinen Zielen':'Woche im Aufbau';
+ return `<div class="score-grid"><div class="score-ring" style="--pct:${score.total}"><div class="score-ring-inner"><strong>${score.total}</strong><small>/ 100</small></div></div><div class="score-details"><strong>${esc(label)}${score.provisional?' · bisher':''}</strong><div>🎯 Zielerfüllung <b>${score.goalPoints}/70</b></div><div>📅 Aktive Tage <b>${score.regularity}/20</b></div><div>📈 Leistungstrend <b>${score.trendPoints}/10</b></div></div></div><div class="score-explainer">${esc(score.trendInfo)}<br>Score aus ${score.goalCount} aktiven Ziel(en) und absolvierten Einheiten. Mehr als 100 % eines Ziels bringt keine Extrapunkte; Erholungswochen sind bewusst keine schlechten Wochen.${compact?' Historische Werte nutzen deine aktuellen Ziele.':''}</div>`;
+}
+function renderScoreOverview(){$('overviewScore').innerHTML=scoreMarkup(monday(selected));}
+// SVG-Charts werden vollständig lokal generiert. Keine Tracking- oder Chart-CDNs.
+const chartColors={e1rm:'#ef626f',seconds:'#f5cd56',functionalSets:'#f5cd56',strengthSets:'#ef626f',runKm:'#47c58b',footballKm:'#68c7f4',score:'#baaaff',reps:'#ef626f',weight:'#ef626f',pace:'#47c58b'};
+function formatPace(v){if(!Number.isFinite(v)||v<=0)return '–';const sec=Math.round(v*60);return `${Math.floor(sec/60)}:${String(sec%60).padStart(2,'0')}`;}
+function plotChart(points,{color='#72e9b9',unit='',zero=false,invert=false,domain=null,precision=1,pace=false}={}){
+ const values=points.map(p=>p.value).filter(v=>Number.isFinite(v));if(!values.length)return '<div class="empty">Noch keine passenden Einträge für dieses Diagramm.</div>';
+ const w=640,h=265,left=48,right=18,top=19,bottom=39,iw=w-left-right,ih=h-top-bottom;
+ let low=domain?domain[0]:Math.min(...values),high=domain?domain[1]:Math.max(...values);
+ if(zero)low=0;
+ if(high<=low)high=low+1;
+ if(!domain){const pad=(high-low)*.09;high+=pad;if(!zero)low=Math.max(0,low-pad);if(zero&&precision===0)high=Math.max(4,Math.ceil(high/4)*4)}
+ const x=i=>left+(points.length===1?iw/2:i/(points.length-1)*iw);
+ const y=v=>top+(invert?(v-low):(high-v))/(high-low)*ih;
+ const valueText=v=>pace?formatPace(v):Number(v).toLocaleString('de-DE',{maximumFractionDigits:precision});
+ let svg=`<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Diagramm mit ${points.length} Datenpunkten${unit?' in '+unit:''}">`;
+ for(let i=0;i<5;i++){
+  const yy=top+i*ih/4,val=invert?low+i*(high-low)/4:high-i*(high-low)/4;
+  svg+=`<line class="gridline" x1="${left}" x2="${w-right}" y1="${yy}" y2="${yy}"/><text class="axistext" x="${left-8}" y="${yy+4}" text-anchor="end">${esc(valueText(val))}</text>`;
+ }
+ const coords=points.map((p,i)=>({x:x(i),y:y(p.value),p}));
+ if(coords.length>1)svg+=`<polyline class="chartline" stroke="${color}" points="${coords.map(c=>`${c.x.toFixed(1)},${c.y.toFixed(1)}`).join(' ')}"/>`;
+ for(const c of coords)svg+=`<circle class="datapoint" cx="${c.x}" cy="${c.y}" r="4.2" fill="${color}"><title>${esc(c.p.label)}: ${esc(valueText(c.p.value))}${unit?' '+esc(unit):''}</title></circle>`;
+ const every=Math.max(1,Math.ceil(points.length/7));
+ coords.forEach((c,i)=>{if(i%every===0||i===coords.length-1)svg+=`<text class="axistext" x="${c.x}" y="${h-12}" text-anchor="middle">${esc(c.p.shortLabel||c.p.label)}</text>`});
+ return svg+'</svg>';
+}
+function defaultProgressMetric(exercise){if(isTimedExercise(exercise))return 'seconds';if(/^(klimmzüge|liegestütze|dips)(?:\b|$)/i.test(exercise))return 'reps';const xs=db.entries.filter(e=>e.exercise===exercise&&['strength','functional'].includes(entryKind(e)));return xs.some(e=>Number(e.weight)>0&&Number(e.reps)>0&&Number(e.reps)<=20)?'e1rm':'reps';}
+function refreshProgressExercises(){
+ const select=$('progressExercise'),current=select.value||'Klimmzüge';
+ const names=[...new Set(db.entries.filter(e=>['strength','functional'].includes(entryKind(e))&&e.exercise).map(e=>e.exercise))].sort((a,b)=>a.localeCompare(b,'de'));
+ if(!names.length){select.innerHTML='<option value="">Noch keine Kraftdaten</option>';return;}
+ const currentValues=Array.from(select.options).map(x=>x.value);if(names.join('|')!==currentValues.join('|'))select.innerHTML=names.map(n=>`<option value="${esc(n)}">${esc(n)}</option>`).join('');
+ if(names.includes(current))select.value=current;else if(names.includes('Klimmzüge'))select.value='Klimmzüge';else if(!names.includes(select.value))select.value=names[0];
+}
+function renderProgress(){
+ const anchor=monday(nowISO()),count=Number($('progressPeriod').value)||12,metric=$('progressMetric').value;
+ const weeks=Array.from({length:count},(_,i)=>shift(anchor,-7*(count-1-i)));
+ const observed=db.entries.filter(e=>e.date>=weeks[0]&&e.date<=shift(anchor,6));
+ const scorePoints=weeks.map(week=>scoreWeek(week));
+ const values=weeks.map((week,i)=>{const e=weekEntries(week),sum=summarize(e);return {label:`KW ${getWeek(week)} (${week.slice(0,4)})`,shortLabel:`KW ${getWeek(week)}`,value:metric==='score'?scorePoints[i]?.total??0:metricValue(metric,sum,e)};});
+ const actualData=metric==='score'?scorePoints.some((sc,i)=>sc&&weekEntries(weeks[i]).length>0):observed.some(e=>metric==='strengthSets'?entryKind(e)==='strength':metric==='functionalSets'?entryKind(e)==='functional':metric==='runKm'?entryKind(e)==='run':entryKind(e)==='football');
+ const desc={functionalSets:'Funktionelle Sätze',strengthSets:'Kraft-Sätze',runKm:'Laufkilometer',footballKm:'Fußballkilometer',score:'Wochenscore'};
+ $('weeklyProgressChart').innerHTML=actualData?plotChart(values,{color:chartColors[metric],unit:metric==='score'?'Punkte':['strengthSets','functionalSets'].includes(metric)?'Sätze':'km',zero:true,domain:metric==='score'?[0,100]:null,precision:['strengthSets','functionalSets','score'].includes(metric)?0:1}):'<div class="empty">Noch keine passenden Trainingseinträge vorhanden. Trage dein Training manuell ein und die Entwicklung erscheint hier automatisch.</div>';
+ const last=weekSummary(anchor),score=scoreWeek(anchor),thisRun=db.entries.filter(e=>entryKind(e)==='run'&&e.date>=shift(anchor,-7*11)&&e.date<=nowISO());
+ $('progressHighlights').innerHTML=`<div class="progress-highlight"><strong>🔴 Kraft · diese Woche</strong><b style="color:var(--strength)">${last.strengthSets}</b><small>Anspruchsvolle Sätze</small></div><div class="progress-highlight"><strong>🟢 Laufen · diese Woche</strong><b style="color:var(--endurance)">${km(last.run)} km</b><small>${last.runCount} Einheiten</small></div><div class="progress-highlight"><strong>🔵 Fußball · diese Woche</strong><b style="color:var(--football)">${km(last.football)} km</b><small>${last.footballCount} Einheiten</small></div><div class="progress-highlight"><strong>🏅 Wochenscore · bisher</strong><b style="color:var(--score)">${score?score.total+'/100':'–'}</b><small>Deine aktuellen Wochenziele · 🟡 ${last.functionalSets} funktionelle Sätze</small></div>`;
+ refreshProgressExercises();
+ if(window.__lastProgressExercise!==$('progressExercise').value){$('progressExerciseMetric').value=defaultProgressMetric($('progressExercise').value);window.__lastProgressExercise=$('progressExercise').value;}
+ const exercise=$('progressExercise').value,exerciseMetric=$('progressExerciseMetric').value;
+ const exercises=db.entries.filter(e=>['strength','functional'].includes(entryKind(e))&&e.exercise===exercise&&e.date>=shift(nowISO(),-365)&&e.date<=nowISO())
+  .sort((a,b)=>a.date.localeCompare(b.date)||(a.created||0)-(b.created||0));
+ const grouped=new Map(),detailByDate=new Map();
+ for(const e of exercises){
+  const weight=e.weight===''||e.weight==null?null:Number(e.weight),reps=Number(e.reps);
+  let v;
+  if(exerciseMetric==='seconds')v=e.seconds!=null?Number(e.seconds):null;
+  else if(exerciseMetric==='weight')v=weight;
+  else if(exerciseMetric==='e1rm')v=weight>0&&reps>=1&&reps<=20?(reps===1?weight:weight*(1+reps/30)):null;
+  else v=reps;
+  if(!Number.isFinite(v)||v<=0)continue;
+  if(v>(grouped.get(e.date)||0)){grouped.set(e.date,v);detailByDate.set(e.date,exerciseMetric==='e1rm'?`${km(weight)} kg × ${reps} Wdh.`:'');}
+ }
+ const exerciseSeries=Array.from(grouped,([date,value])=>({value,label:fmtDay(date)+(detailByDate.get(date)?' · '+detailByDate.get(date):''),shortLabel:date.slice(5).replace('-','.')})).slice(-20);
+ const unit=exerciseMetric==='seconds'?'Sek.':['weight','e1rm'].includes(exerciseMetric)?'kg':'Wdh.';
+ $('exerciseProgressChart').innerHTML=plotChart(exerciseSeries,{color:exerciseKind(exercise)==='functional'?'#f5cd56':chartColors[exerciseMetric],unit,zero:true,precision:exerciseMetric==='e1rm'?1:0});
+ if(!exerciseSeries.length){
+  $('exerciseProgressChart').innerHTML='<div class="empty">'+(exerciseMetric==='e1rm'?'Für diese Übung noch keine vergleichbaren gewichteten Sätze mit 1–20 Wiederholungen. Wähle „Beste Wiederholungen“ oder trage Gewicht ein.':'Noch keine passenden Werte für diesen Messwert.')+'</div>';
+ }
+ $('exerciseChartNote').textContent=exerciseMetric==='e1rm'?'Kraftindex (Epley): Gewicht × (1 + Wdh. / 30); bei genau 1 Wdh. zählt das tatsächlich bewältigte Gewicht. Pro Tag zählt der höchste Wert. Nur Sätze mit erfasstem Gewicht und 1–20 Wdh.; ab etwa 12 Wdh. ungenauer. Bei Übungen mit bloßem Zusatzgewicht (z. B. Klimmzüge) kein sinnvoller 1RM-Vergleich. Nur innerhalb derselben Übung vergleichen.':exerciseMetric==='seconds'?'Halteübungen: Pro Versuch zählt die erfasste Bestzeit; im Diagramm siehst du die längste Zeit dieses Tages. Keine Wiederholungen.':exerciseMetric==='weight'?'Das höchste erfasste Gewicht je Trainingstag, unabhängig von der Wiederholungszahl.':'Die höchste Wiederholungszahl je Tag; Gewicht wird für diesen Messwert nicht berücksichtigt.';
+ const runs=db.entries.filter(e=>entryKind(e)==='run'&&e.date<=nowISO()&&+e.distance>0&&+e.duration>0).sort((a,b)=>a.date.localeCompare(b.date)||(a.created||0)-(b.created||0)).slice(-20);
+ const paceSeries=runs.map(e=>({value:+e.duration/(+e.distance),label:`${fmtDay(e.date)} · ${km(e.distance)} km`,shortLabel:e.date.slice(5).replace('-','.')})).filter(p=>p.value>2&&p.value<30);
+ $('paceProgressChart').innerHTML=plotChart(paceSeries,{color:chartColors.pace,unit:'min/km',invert:true,precision:2,pace:true});
+}
+$('progressMetric').onchange=renderProgress;
+$('progressPeriod').onchange=renderProgress;
+$('progressExercise').onchange=()=>{$('progressExerciseMetric').value=defaultProgressMetric($('progressExercise').value);renderProgress()};
+$('progressExerciseMetric').onchange=renderProgress;
+function recoveryReport(){
+ const today=nowISO(),recent=db.entries.filter(e=>e.date>=shift(today,-7)&&e.date<=today).sort((a,b)=>a.date.localeCompare(b.date));
+ const future=db.plans.filter(p=>p.date>=today&&p.date<=shift(today,14)).sort((a,b)=>a.date.localeCompare(b.date));
+ const goals=Object.entries(db.goals).map(([k,v])=>`${metricCatalog()[k]?.label||k}: ${v} ${metricCatalog()[k]?.unit||'pro Woche'}`).join(', ');
+ return `TRAINING HQ · Regeneration und nächste Trainingstage\nStand: ${today}\nPrioritäten: Oberkörper Kraft & Muskelaufbau; Beine Fußballleistung; Laufen/Ausdauer.\nWochenziele: ${goals||'keine festgelegt'}\n\nABSOLVIERT (letzte 7 Tage):\n${recent.map(e=>`${e.date}: ${entryName(e)} · ${desc(e)}`).join('\n')||'Keine Einträge'}\n\nGEPLANT (nächste 14 Tage):\n${future.map(p=>`${p.date}: ${p.title||p.exercise||p.kind} · ${planDescription(p)}${p.note?' · '+p.note:''}`).join('\n')||'Noch nichts geplant'}\n\nBitte analysiere die Belastungsverteilung und möglichen Regenerationskonflikte. Gib konkrete, vorsichtige Vorschläge für Erholung, Schlaf und die Trainingsreihenfolge. Erfinde keine Trainingsdaten. Falls Schlaf, Müdigkeit oder Schmerzen fehlen, erwähne diese Unsicherheit. Ziele sind Richtwerte, keine Pflicht. Antworte auf Deutsch.`;
+}
+$('copyRecovery').onclick=async()=>{
+ const value=recoveryReport();
+ try{await navigator.clipboard.writeText(value);showToast('✓ KI-Analysevorlage kopiert – in ChatGPT einfügen');}
+ catch(e){const area=document.createElement('textarea');area.value=value;area.style.position='fixed';area.style.opacity='0';document.body.appendChild(area);area.select();try{document.execCommand('copy');showToast('✓ KI-Analysevorlage kopiert');}catch(e){showToast('Kopieren fehlgeschlagen');}area.remove();}
+};
+
+renderSettings();render();
+</script>
+</body></html>
